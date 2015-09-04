@@ -6,11 +6,11 @@ Released into public domain.
 Contents:
 
 1. [MathUtils](#mathutils)
- 1. [Conversion functions](#conversion-functions)
-   - [toArabicNumerals](#toarabicnumerals)
-   - [toRomanNumerals](#toromannumerals)
- 2. [Modular arithmetics](#modular-arithmetics)
-2. [PrimeUtils](#primeutils)
+  1. [Conversion functions](#conversion-functions)
+    1. [toArabicNumerals](#toarabicnumerals)
+    1. [toRomanNumerals](#toromannumerals)
+  1. [Modular arithmetics](#modular-arithmetics)
+1. [PrimeUtils](#primeutils)
 
 ## MathUtils
 
