@@ -1,6 +1,15 @@
 # JBroMath
 Math utilities for Java.
 
+Released into public domain.
+
+Contents:
+
+1. [MathUtils](#mathutils)
+ 1. [Conversion functions](#conversion-functions)
+  1. [toArabicNumerals](#toarabicnumerals)
+  1. [toRomanNumerals](#toromannumerals)
+
 ## MathUtils
 
 - Test coverage: 100%
@@ -8,7 +17,7 @@ Math utilities for Java.
 
 ### Conversion functions
 
-**toArabicNumerals** - converts string representation of Roman numerals to decimal value.
+<a name="toarabicnumerals>**toArabicNumerals**</a> - converts string representation of Roman numerals to decimal value.
 There are three variants of this function:
 ```java
 int toArabicNumeralsInt( String )
@@ -22,7 +31,7 @@ Supports N for zero, S for a half and minus sign for negative values. Converts v
 int toArabicNumeralsExcelInt( String )
 ```
 A variant identical to Microsoft Excel's ARABIC( text ) function. Supports minus sign. Accepts strings up to 255 characters (inclusively).
-
+___
 **toRomanNumerals** - converts a decimal number to its string representation as Roman numerals.
 There are also three variants of this function:
 ```java
@@ -44,5 +53,3 @@ A variant identical to Microsoft Excel's ROMAN( number, mode ) function. The mod
 4. Minimal (according to Excel's terms): IM, ID.
 
 Note that the mode 4 doesn't produce absolutely minimal representation of all the numbers. Use toRomanNumeralsString with "shortest" set to true if the absolutely minimal form is required. Example: ROMAN( 78; 4 ) = "LXXVIII" but minimal is "IIXXC". And ARABIC function correctly accepts this input.
-
-Released into public domain.
