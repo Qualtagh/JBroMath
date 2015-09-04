@@ -82,13 +82,13 @@ public class BigUtils
     public static final BigDecimal BD_FIVE = BigDecimal.valueOf( 5 );
     
     /**
-     * Given integer number n, find integer number s such that s<sup>2</sup> = n.<br/>
+     * Given integer number n, find integer number s such that s<sup>2</sup> = n.<br>
      * Return null if such number s doesn't exists.
-     * <p>Perfect square: http://en.wikipedia.org/wiki/Square_number</p>
-     * <p>The implementation is a Java port of this code:<br/>
-     * http://cpansearch.perl.org/src/DANAJ/Math-Prime-Util-0.11/factor.c</p>
+     * <p>Perfect square: http://en.wikipedia.org/wiki/Square_number
+     * <p>The implementation is a Java port of this code:<br>
+     * http://cpansearch.perl.org/src/DANAJ/Math-Prime-Util-0.11/factor.c
      * @param n an integer square number
-     * @return integer number s such that s<sup>2</sup> = n<br/>
+     * @return integer number s such that s<sup>2</sup> = n<br>
      * or null if such number s doesn't exist
      */
     public static BigInteger getBaseOfPerfectSquare( BigInteger n )
@@ -130,7 +130,7 @@ public class BigUtils
     }
     
     /**
-     * Determine if a given number n is perfect square.<br/>
+     * Determine if a given number n is perfect square.<br>
      * http://en.wikipedia.org/wiki/Square_number
      * @param n number to check
      * @return true if and only if there exists integer number s such that s<sup>2</sup> = n
@@ -142,9 +142,9 @@ public class BigUtils
     
     /**
      * Returns integer square root of n.
-     * <p>Integer square root: http://en.wikipedia.org/wiki/Integer_square_root</p>
-     * <p>The greatest integer less than or equal to the square root of n. Example:<br/>
-     * isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 &gt; 27</p>
+     * <p>Integer square root: http://en.wikipedia.org/wiki/Integer_square_root
+     * <p>The greatest integer less than or equal to the square root of n. Example:<br>
+     * isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 &gt; 27
      * @param n radicand
      * @return trunc( sqrt( n ) )
      * @throws ArithmeticException if n &lt; 0
@@ -176,8 +176,8 @@ public class BigUtils
     }
     
     /**
-     * Signed mod.<br/>
-     * The value returned lies in range [ -( |m| - 1 ) / 2 .. |m| / 2 ].<br/>
+     * Signed mod.<br>
+     * The value returned lies in range [ -( |m| - 1 ) / 2 .. |m| / 2 ].<br>
      * If m = 0 then ArithmeticException is thrown.
      * @param v a value
      * @param m a modulus
@@ -196,10 +196,10 @@ public class BigUtils
     }
     
     /**
-     * Returns v (mod m).<br/>
-     * The value returned lies in range [ 0 .. |m| - 1 ].<br/>
-     * mod( x, m ) = mod( x, -m ).<br/>
-     * This method differs from {@link java.math.BigInteger#mod} in that it supports negative modulus.<br/>
+     * Returns v (mod m).<br>
+     * The value returned lies in range [ 0 .. |m| - 1 ].<br>
+     * mod( x, m ) = mod( x, -m ).<br>
+     * This method differs from {@link java.math.BigInteger#mod} in that it supports negative modulus.<br>
      * If m = 0 then ArithmeticException is thrown.
      * @param v a value
      * @param m a modulus

@@ -78,7 +78,7 @@ public class MathUtils
                                                         "S" } };
     
     /**
-     * Decimal values of Roman numerals from {@link #ROMAN_NUMBERS}.<br/>
+     * Decimal values of Roman numerals from {@link #ROMAN_NUMBERS}.<br>
      * Values are doubled to allow S (semis - half) representation as int.
      */
     private static final int DECIMAL_NUMBERS[][];
@@ -90,14 +90,14 @@ public class MathUtils
     private static final Pattern ROMAN_NUMBER = Pattern.compile( "^M{0,3}(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})$", Pattern.CASE_INSENSITIVE );
     
     /**
-     * Array of largest roots in int range.<br/>
+     * Array of largest roots in int range.<br>
      * If r = MAX_ROOTS_INT[ i ] then r<sup>i</sup> &le; {@link java.lang.Integer#MAX_VALUE} and ( r + 1 )<sup>i</sup> &gt; {@link java.lang.Integer#MAX_VALUE}.
      * @see #iroot(int, int)
      */
     private static final int MAX_ROOTS_INT[] = { 2147483647, 2147483647, 46340, 1290, 215, 73, 35, 21, 14, 10, 8, 7, 5, 5, 4, 4, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1 };
     
     /**
-     * Array of largest roots in long range.<br/>
+     * Array of largest roots in long range.<br>
      * If r = MAX_ROOTS_LONG[ i ] then r<sup>i</sup> &le; {@link java.lang.Long#MAX_VALUE} and ( r + 1 )<sup>i</sup> &gt; {@link java.lang.Long#MAX_VALUE}.
      * @see #iroot(long, int)
      */
@@ -109,14 +109,14 @@ public class MathUtils
     private static final int SMALL_PRIMES[] = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31 };
     
     /**
-     * Packed array of allowed perfect square residues mod 255.<br/>
-     * Based on this discussion:<br/>
+     * Packed array of allowed perfect square residues mod 255.<br>
+     * Based on this discussion:<br>
      * http://stackoverflow.com/questions/295579/fastest-way-to-determine-if-an-integers-square-root-is-an-integer
      */
     private static final int CAN_255_RESIDUE_BE_PERFECT_SQUARE[] = { -935226302, 671109384, -1509405694, 136384704, 25215264, 38928420, 403439640, 1142981121, -1870452604, 1342218769, 1276155908, 272769408, 50430528, 77856840, 806879280, -2009005053 };
 
     /**
-     * Array of mods to check when searching for base of perfect power.<br/>
+     * Array of mods to check when searching for base of perfect power.<br>
      * Let m be PERFECT_POWER_MODS[ power ], then m is the best mod for chosen power
      * such that 2 &le; m &le; 64. "Best" means that the quantity of distinct
      * n<sup>power</sup> (mod m) is minimal (n is integer, 0 &le; n &le; 63).
@@ -134,8 +134,8 @@ public class MathUtils
                                                       64, 63, 59, 64, 61, 64, 48, 49 };
     
     /**
-     * Array of residues to check when searching for base of perfect power.<br/>
-     * See: {@link #PERFECT_POWER_MODS}.<br/>
+     * Array of residues to check when searching for base of perfect power.<br>
+     * See: {@link #PERFECT_POWER_MODS}.<br>
      * Let m be PERFECT_POWER_MODS[ power ] and r be PERFECT_POWER_ALLOWED_RESIDUES[ power ].
      * For a given integer number n, if r[ n (mod m) ] = 0 then root of n of degree power
      * is not integer (otherwise it may be integer). Here r[ x ] means "get x-th bit of r".
@@ -150,18 +150,18 @@ public class MathUtils
                                                                    0xC000000040000000L, 0xC080001818000102L, 0xC000000000000000L, 0xD555555555555555L, 0xC000000000000000L, 0xD555555555555555L, 0xC040804040000000L, 0xC000000000008000L };
 
     /**
-     * Some methods return this value as indication that the answer doesn't exist or is undefined.<br/>
+     * Some methods return this value as indication that the answer doesn't exist or is undefined.<br>
      * For example, when mod = 0 in modular arithmetics, or when a number isn't a perfect power and
      * a function should return its base.
      * <p>This constant equals to {@code Integer.MIN_VALUE} because {@code Integer.MIN_VALUE}
-     * can't be a base of any perfect power that fits in long. Proof:</p><ul>
+     * can't be a base of any perfect power that fits in long. Proof:<ul>
      * <li>Base of perfect square is a positive number.</li>
      * <li>Integer.MIN_VALUE<sup>3</sup> = ((-2)<sup>31</sup>)<sup>3</sup> = (-2)<sup>93</sup> &lt; (-2)<sup>63</sup> = Long.MIN_VALUE.</li>
      * <li>Higher powers would give higher values.</li></ul>
      * So no power greater than one can return base = {@code Integer.MIN_VALUE} for any long integer.
      * <p>Also, any modular arithmetic operation returns non-negative value,
-     * so negative values can be used as error codes.</p>
-     * <p>Error codes are more desirable than throwing an exception when performance matters.</p>
+     * so negative values can be used as error codes.
+     * <p>Error codes are more desirable than throwing an exception when performance matters.
      */
     public static final int NOT_FOUND = Integer.MIN_VALUE;
     
@@ -178,11 +178,11 @@ public class MathUtils
   
     /**
      * Converts Roman numerals string to its decimal representation,
-     * throwing an exception if the input is not a valid Roman numerals string.<br/>
-     * This is a classic form of Roman numerals with zero (N) permitted.<br/>
-     * III -&gt; 3<br/>
-     * MCMLXXXIV -&gt; 1984<br/>
-     * IV -&gt; 4<br/>
+     * throwing an exception if the input is not a valid Roman numerals string.<br>
+     * This is a classic form of Roman numerals with zero (N) permitted.<br>
+     * III -&gt; 3<br>
+     * MCMLXXXIV -&gt; 1984<br>
+     * IV -&gt; 4<br>
      * IIII -&gt; exception
      * @param roman Roman numerals string to be converted
      * @return integer decimal value of input string
@@ -195,20 +195,20 @@ public class MathUtils
     }
   
     /**
-     * Converts Roman numerals string to its decimal representation.<br/>
+     * Converts Roman numerals string to its decimal representation.<br>
      * Allowed symbols are: M, D, C, L, X, V, I, S (half) and N (zero).
-     * Minus sign is allowed too. No validation of characters order is performed.<br/>
-     * <p>III -&gt; 3<br/>
-     * MCMLXXXIV -&gt; 1984<br/>
-     * IV -&gt; 4<br/>
-     * IIII -&gt; 4<br/>
-     * IIX -&gt; 8 (I is subtracted twice from X)<br/>
-     * -M -&gt; -1000<br/>
-     * IVIX -&gt; 3 (I, V and I are subtracted from X)<br/>
-     * IVIXIV -&gt; 7 (IVIX + IV)<br/>
-     * IVIXIM -&gt; 982 (M - I - V - I - X - I)<br/>
-     * SV -&gt; 4.5<br/>
-     * SSS -&gt; 1.5</p>
+     * Minus sign is allowed too. No validation of characters order is performed.<br>
+     * <p>III -&gt; 3<br>
+     * MCMLXXXIV -&gt; 1984<br>
+     * IV -&gt; 4<br>
+     * IIII -&gt; 4<br>
+     * IIX -&gt; 8 (I is subtracted twice from X)<br>
+     * -M -&gt; -1000<br>
+     * IVIX -&gt; 3 (I, V and I are subtracted from X)<br>
+     * IVIXIV -&gt; 7 (IVIX + IV)<br>
+     * IVIXIM -&gt; 982 (M - I - V - I - X - I)<br>
+     * SV -&gt; 4.5<br>
+     * SSS -&gt; 1.5
      * @param roman Roman numerals string to be converted
      * @return double floating point value of input string
      * @throws IllegalArgumentException if input contains illegal characters
@@ -219,9 +219,9 @@ public class MathUtils
     }
   
     /**
-     * Converts Roman numerals string to its decimal representation.<br/>
-     * This function is identical to Microsoft Excel's ARABIC( text ) function.<br/>
-     * http://office.microsoft.com/en-gb/excel-help/arabic-function-HA102753258.aspx<br/>
+     * Converts Roman numerals string to its decimal representation.<br>
+     * This function is identical to Microsoft Excel's ARABIC( text ) function.<br>
+     * http://office.microsoft.com/en-gb/excel-help/arabic-function-HA102753258.aspx<br>
      * <p>That is:<ul>
      * <li>If the argument is null, empty or blank, 0 is returned.</li>
      * <li>If the input string is longer than 255 characters, an exception is thrown.
@@ -230,16 +230,16 @@ public class MathUtils
      * <li>Leading and trailing spaces are ignored.</li>
      * <li>Negative sign is permitted.</li>
      * <li>The input is not validated as in a classic variant {@link #toArabicNumeralsInt}.</li>
-     * <li>However, if the input contains illegal characters, an exception is thrown.</li></ul></p>
-     * <p>III -&gt; 3<br/>
-     * MCMLXXXIV -&gt; 1984<br/>
-     * IV -&gt; 4<br/>
-     * IIII -&gt; 4<br/>
-     * IIX -&gt; 8 (I is subtracted twice from X)<br/>
-     * -M -&gt; -1000<br/>
-     * IVIX -&gt; 3 (I, V and I are subtracted from X)<br/>
-     * IVIXIV -&gt; 7 (IVIX + IV)<br/>
-     * IVIXIM -&gt; 982 (M - I - V - I - X - I)</p>
+     * <li>However, if the input contains illegal characters, an exception is thrown.</li></ul>
+     * <p>III -&gt; 3<br>
+     * MCMLXXXIV -&gt; 1984<br>
+     * IV -&gt; 4<br>
+     * IIII -&gt; 4<br>
+     * IIX -&gt; 8 (I is subtracted twice from X)<br>
+     * -M -&gt; -1000<br>
+     * IVIX -&gt; 3 (I, V and I are subtracted from X)<br>
+     * IVIXIV -&gt; 7 (IVIX + IV)<br>
+     * IVIXIM -&gt; 982 (M - I - V - I - X - I)
      * @param roman Roman numerals string to be converted
      * @return integer decimal value of input string
      * @throws IllegalArgumentException if input string is null, empty
@@ -253,16 +253,16 @@ public class MathUtils
     
     /**
      * Converts Roman numerals string to its decimal representation.
-     * @param roman Roman numerals string to be converted<br/>
-     * @param validateInput <i>false:</i> allow any sequence of allowed characters, trim input, return 0 for blank<br/>
-     * <i>true:</i> allow only valid sequences of characters (deny "IM", "VIXD" etc.)<br/>
-     * @param permitZero allow character N as 0<br/>
-     * When validateInput is true then N cannot adjoin any other character except minus sign (if it's permitted)<br/>
-     * @param permitHalf allow character S as 0.5<br/>
-     * When validateInput is true then S is allowed only at last position of an input string<br/>
-     * @param permitMinus allow character "-" as negation of the resulting value<br/>
-     * This symbol is allowed only in the beginning of an input string<br/>
-     * @return integer decimal value of input string, <b>should be divided by 2</b><br/>
+     * @param roman Roman numerals string to be converted<br>
+     * @param validateInput <i>false:</i> allow any sequence of allowed characters, trim input, return 0 for blank<br>
+     * <i>true:</i> allow only valid sequences of characters (deny "IM", "VIXD" etc.)<br>
+     * @param permitZero allow character N as 0<br>
+     * When validateInput is true then N cannot adjoin any other character except minus sign (if it's permitted)<br>
+     * @param permitHalf allow character S as 0.5<br>
+     * When validateInput is true then S is allowed only at last position of an input string<br>
+     * @param permitMinus allow character "-" as negation of the resulting value<br>
+     * This symbol is allowed only in the beginning of an input string<br>
+     * @return integer decimal value of input string, <b>should be divided by 2</b><br>
      * @throws IllegalArgumentException if input string is null, empty or not a valid Roman number
      */
     private static int toArabicNumeralsInternal( String roman, boolean validateInput, boolean permitZero, boolean permitHalf, boolean permitMinus ) throws IllegalArgumentException
@@ -363,10 +363,10 @@ public class MathUtils
     }
   
     /**
-     * Converts integer decimal number to Roman numerals string.<br/>
+     * Converts integer decimal number to Roman numerals string.<br>
      * Difference from {@link #toRomanNumeralsExcelString}: 0 (zero) is converted to N (nulla).
      * @param number a value to be converted, 0 &le; number &lt; 4000
-     * @param shortest if true, then the minimal length Roman numerals string would be generated,<br/>
+     * @param shortest if true, then the minimal length Roman numerals string would be generated,<br>
      * otherwise this method obeys classic Arabic-to-Roman conversion rules
      * @return Roman numerals string representing value of number
      * @throws NumberFormatException if number &lt; 0 or number &ge; 4000
@@ -377,11 +377,11 @@ public class MathUtils
     }
   
     /**
-     * Converts double floating point number to Roman numerals string.<br/>
+     * Converts double floating point number to Roman numerals string.<br>
      * Zero (0) is converted to N (nulla). Half (0.5) is converted to S (semis).
      * Negative numbers are permitted. Maximum allowed value is 999999.
      * @param number a value to be converted, -1e6 &le; number &le; 1e6
-     * @param shortest if true, then the minimal length Roman numerals string would be generated,<br/>
+     * @param shortest if true, then the minimal length Roman numerals string would be generated,<br>
      * otherwise this method obeys classic Arabic-to-Roman conversion rules
      * @return Roman numerals string representing value of number
      * @throws NumberFormatException if number &le; -1e6 or number &ge; 1e6
@@ -392,19 +392,19 @@ public class MathUtils
     }
   
     /**
-     * Converts integer decimal number to Roman numerals string.<br/>
-     * This method is identical to Microsoft Excel's ROMAN( number, mode ) function.<br/>
-     * http://office.microsoft.com/en-gb/excel-help/roman-function-HA102752883.aspx?CTT=5&origin=HA102753258<br/>
+     * Converts integer decimal number to Roman numerals string.<br>
+     * This method is identical to Microsoft Excel's ROMAN( number, mode ) function.<br>
+     * http://office.microsoft.com/en-gb/excel-help/roman-function-HA102752883.aspx?CTT=5&amp;origin=HA102753258<br>
      * <p>That is:<ul>
      * <li>Zero is converted to an empty string.</li>
      * <li>Negative numbers are denied.</li>
-     * <li>Maximum input number is 3999.</li></ul></p>
+     * <li>Maximum input number is 3999.</li></ul>
      * @param number a value to be converted, 0 &le; number &lt; 4000
-     * @param mode 0 - classic form of Roman numerals:<br/>
-     * I, V, X, L, C, D, M and subtractive sequences CM, CD, XC, XL, IX, IV are allowed<br/>
-     * 1 - more concise: LM, LD, VC, VL are also allowed<br/>
-     * 2 - more concise: XM, XD, IC, IL<br/>
-     * 3 - more concise: VM, VD<br/>
+     * @param mode 0 - classic form of Roman numerals:<br>
+     * I, V, X, L, C, D, M and subtractive sequences CM, CD, XC, XL, IX, IV are allowed<br>
+     * 1 - more concise: LM, LD, VC, VL are also allowed<br>
+     * 2 - more concise: XM, XD, IC, IL<br>
+     * 3 - more concise: VM, VD<br>
      * 4 - minimal: IM, ID
      * @return Roman numerals string representing value of number
      * @throws NumberFormatException if number &lt; 0 or number &ge; 4000
@@ -418,14 +418,14 @@ public class MathUtils
     
     /**
      * Converts integer decimal number to Roman numerals string.
-     * @param number a value to be converted, <b>should be multiplied by 2</b><br/>
-     * @param mode 0 - classic rules (the same as mode 0 in Microsoft Excel's ROMAN( text, mode ) function)<br/>
-     * 1 - Microsoft Excel's "Minimal" (4) mode<br/>
-     * @param max permit values only in ( -max, max ) range, throw exception otherwise; should be positive<br/>
-     * @param permitZero permit zero input or throw exception<br/>
-     * @param permitNegative permit negative values as input or throw exception<br/>
-     * @param zeroAsEmpty if permitZero is set to true, return empty string (if true) or N (if false) for number = 0<br/>
-     * @return Roman numerals string representing value of number<br/>
+     * @param number a value to be converted, <b>should be multiplied by 2</b><br>
+     * @param mode 0 - classic rules (the same as mode 0 in Microsoft Excel's ROMAN( text, mode ) function)<br>
+     * 1 - Microsoft Excel's "Minimal" (4) mode<br>
+     * @param max permit values only in ( -max, max ) range, throw exception otherwise; should be positive<br>
+     * @param permitZero permit zero input or throw exception<br>
+     * @param permitNegative permit negative values as input or throw exception<br>
+     * @param zeroAsEmpty if permitZero is set to true, return empty string (if true) or N (if false) for number = 0<br>
+     * @return Roman numerals string representing value of number<br>
      * @throws NumberFormatException if one of the following situations occurs:<ul>
      * <li>number &le; -max</li>
      * <li>number &ge; max</li>
@@ -466,9 +466,9 @@ public class MathUtils
     }
 
     /**
-     * Returns a {@link java.math.BigDecimal} representation of a given number.<br/>
+     * Returns a {@link java.math.BigDecimal} representation of a given number.<br>
      * If the class of a number isn't one of standard Java number classes,
-     * the conversion is made through number doubleValue() method call.<br/>
+     * the conversion is made through number doubleValue() method call.<br>
      * If a number is null then null is returned.
      * @param number a number to be converted
      * @return BigDecimal representation of a given number
@@ -528,7 +528,7 @@ public class MathUtils
     }
 
     /**
-     * Returns a string representation of a given number without an exponent field.<br/>
+     * Returns a string representation of a given number without an exponent field.<br>
      * When the value is {@link java.lang.Double#NaN} or infinite,
      * this method is equivalent to {@link java.lang.Double#toString()}.
      * It produces "NaN", "Infinity" and "-Infinity" for {@link java.lang.Double#NaN},
@@ -595,7 +595,7 @@ public class MathUtils
 
     /**
      * Symmetric rounding half away from zero to {@code decimals} places to the right of the decimal point.
-     * <p>http://en.wikipedia.org/wiki/Rounding#Round_half_away_from_zero<br/>
+     * <p>http://en.wikipedia.org/wiki/Rounding#Round_half_away_from_zero<br>
      * Examples:<ul>
      * <li>round( 12.1, 0 ) = 12.0</li>
      * <li>round( 12.9, 0 ) = 13.0</li>
@@ -607,8 +607,8 @@ public class MathUtils
      * <li>round( -12.9, 0 ) = -13.0</li>
      * <li>round( -12.5, 0 ) = -13.0</li></ul>
      * This method differs from {@link java.lang.Math#round(double)} for negative numbers,
-     * because the latter uses asymmetric rounding half up.<br/>
-     * See: http://en.wikipedia.org/wiki/Rounding#Round_half_up</p>
+     * because the latter uses asymmetric rounding half up.<br>
+     * See: http://en.wikipedia.org/wiki/Rounding#Round_half_up
      * @param value number to be rounded
      * @param decimals quantity of places to the right of the decimal point
      * @return {@code value} rounded to {@code decimals} places
@@ -624,7 +624,7 @@ public class MathUtils
 
     /**
      * Rounding towards zero (truncating) to {@code decimals} places to the right of the decimal point.
-     * <p>http://en.wikipedia.org/wiki/Truncation<br/>
+     * <p>http://en.wikipedia.org/wiki/Truncation<br>
      * Examples:<ul>
      * <li>trunc( 12.1, 0 ) = 12.0</li>
      * <li>trunc( 12.9, 0 ) = 12.0</li>
@@ -634,7 +634,7 @@ public class MathUtils
      * <li>trunc( 12.1, -1 ) = 10.0</li>
      * <li>trunc( -12.1, 0 ) = -12.0</li>
      * <li>trunc( -12.9, 0 ) = -12.0</li>
-     * <li>trunc( -12.5, 0 ) = -12.0</li></ul></p>
+     * <li>trunc( -12.5, 0 ) = -12.0</li></ul>
      * @param value number to be truncated
      * @param decimals quantity of places to the right of the decimal point
      * @return {@code value} truncated to {@code decimals} places
@@ -650,7 +650,7 @@ public class MathUtils
   
     /**
      * Rounding up (ceiling) to {@code decimals} places to the right of the decimal point.
-     * <p>http://en.wikipedia.org/wiki/Floor_and_ceiling_functions<br/>
+     * <p>http://en.wikipedia.org/wiki/Floor_and_ceiling_functions<br>
      * Examples:<ul>
      * <li>ceil( 12.1, 0 ) = 13.0</li>
      * <li>ceil( 12.9, 0 ) = 13.0</li>
@@ -660,7 +660,7 @@ public class MathUtils
      * <li>ceil( 12.1, -1 ) = 20.0</li>
      * <li>ceil( -12.1, 0 ) = -12.0</li>
      * <li>ceil( -12.9, 0 ) = -12.0</li>
-     * <li>ceil( -12.5, 0 ) = -12.0</li></ul></p>
+     * <li>ceil( -12.5, 0 ) = -12.0</li></ul>
      * @param value number to be ceiled
      * @param decimals quantity of places to the right of the decimal point
      * @return {@code value} ceiled to {@code decimals} places
@@ -676,7 +676,7 @@ public class MathUtils
 
     /**
      * Rounding down (flooring) to {@code decimals} places to the right of the decimal point.
-     * <p>http://en.wikipedia.org/wiki/Floor_and_ceiling_functions<br/>
+     * <p>http://en.wikipedia.org/wiki/Floor_and_ceiling_functions<br>
      * Examples:<ul>
      * <li>floor( 12.1, 0 ) = 12.0</li>
      * <li>floor( 12.9, 0 ) = 12.0</li>
@@ -686,7 +686,7 @@ public class MathUtils
      * <li>floor( 12.1, -1 ) = 10.0</li>
      * <li>floor( -12.1, 0 ) = -13.0</li>
      * <li>floor( -12.9, 0 ) = -13.0</li>
-     * <li>floor( -12.5, 0 ) = -13.0</li></ul></p>
+     * <li>floor( -12.5, 0 ) = -13.0</li></ul>
      * @param value number to be floored
      * @param decimals quantity of places to the right of the decimal point
      * @return {@code value} floored to {@code decimals} places
@@ -758,7 +758,7 @@ public class MathUtils
      * @param x base
      * @param y power
      * @return x<sup>y</sup>
-     * @throws ArithmeticException if the result overflows a long<br/>
+     * @throws ArithmeticException if the result overflows a long<br>
      * or if x = 0 and y &lt; 0 (resulting in infinity)
      */
     public static long powExact( long x, int y ) throws ArithmeticException
@@ -819,7 +819,7 @@ public class MathUtils
      * @param x base
      * @param y power
      * @return x<sup>y</sup>
-     * @throws ArithmeticException if the result overflows an int<br/>
+     * @throws ArithmeticException if the result overflows an int<br>
      * or if x = 0 and y &lt; 0 (resulting in infinity)
      */
     public static int powExact( int x, int y ) throws ArithmeticException
@@ -876,10 +876,10 @@ public class MathUtils
     }
     
     /**
-     * Returns v (mod m).<br/>
-     * The value returned lies in range [ 0 .. |m| - 1 ].<br/>
-     * mod( x, m ) = mod( x, -m ).<br/>
-     * This method differs from v % m in that it always returns non-negative value.<br/>
+     * Returns v (mod m).<br>
+     * The value returned lies in range [ 0 .. |m| - 1 ].<br>
+     * mod( x, m ) = mod( x, -m ).<br>
+     * This method differs from v % m in that it always returns non-negative value.<br>
      * If m = 0 then {@link #NOT_FOUND} is returned.
      * @param v a value
      * @param m a modulus
@@ -899,10 +899,10 @@ public class MathUtils
     }
     
     /**
-     * Returns v (mod m).<br/>
-     * The value returned lies in range [ 0 .. |m| - 1 ].<br/>
-     * mod( x, m ) = mod( x, -m ).<br/>
-     * This method differs from v % m in that it always returns non-negative value.<br/>
+     * Returns v (mod m).<br>
+     * The value returned lies in range [ 0 .. |m| - 1 ].<br>
+     * mod( x, m ) = mod( x, -m ).<br>
+     * This method differs from v % m in that it always returns non-negative value.<br>
      * If m = 0 then {@link #NOT_FOUND} is returned.
      * @param v a value
      * @param m a modulus
@@ -922,8 +922,8 @@ public class MathUtils
     }
     
     /**
-     * Signed mod.<br/>
-     * The value returned lies in range [ -( |m| - 1 ) / 2 .. |m| / 2 ].<br/>
+     * Signed mod.<br>
+     * The value returned lies in range [ -( |m| - 1 ) / 2 .. |m| / 2 ].<br>
      * If m = 0 then {@link #NOT_FOUND} is returned.
      * @param v a value
      * @param m a modulus
@@ -948,8 +948,8 @@ public class MathUtils
     }
     
     /**
-     * Signed mod.<br/>
-     * The value returned lies in range [ -( |m| - 1 ) / 2 .. |m| / 2 ].<br/>
+     * Signed mod.<br>
+     * The value returned lies in range [ -( |m| - 1 ) / 2 .. |m| / 2 ].<br>
      * If m = 0 then {@link #NOT_FOUND} is returned.
      * @param v a value
      * @param m a modulus
@@ -974,9 +974,9 @@ public class MathUtils
     }
   
     /**
-     * Modular addition.<br/>
-     * Returns ( a + b )( mod m ).<br/>
-     * Differs from ( a + b ) % modulus in that it always returns non-negative value and never overflows.<br/>
+     * Modular addition.<br>
+     * Returns ( a + b )( mod m ).<br>
+     * Differs from ( a + b ) % modulus in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -998,9 +998,9 @@ public class MathUtils
     }
   
     /**
-     * Modular addition.<br/>
-     * Returns ( a + b )( mod m ).<br/>
-     * Differs from ( a + b ) % modulus in that it always returns non-negative value and never overflows.<br/>
+     * Modular addition.<br>
+     * Returns ( a + b )( mod m ).<br>
+     * Differs from ( a + b ) % modulus in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1029,9 +1029,9 @@ public class MathUtils
     }
   
     /**
-     * Modular subtraction.<br/>
-     * Returns ( a - b )( mod m ).<br/>
-     * Differs from ( a - b ) % modulus in that it always returns non-negative value and never overflows.<br/>
+     * Modular subtraction.<br>
+     * Returns ( a - b )( mod m ).<br>
+     * Differs from ( a - b ) % modulus in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1053,9 +1053,9 @@ public class MathUtils
     }
   
     /**
-     * Modular subtraction.<br/>
-     * Returns ( a - b )( mod m ).<br/>
-     * Differs from ( a - b ) % modulus in that it always returns non-negative value and never overflows.<br/>
+     * Modular subtraction.<br>
+     * Returns ( a - b )( mod m ).<br>
+     * Differs from ( a - b ) % modulus in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1085,9 +1085,9 @@ public class MathUtils
     }
   
     /**
-     * Modular multiplication.<br/>
-     * Returns ( a * b )( mod m ).<br/>
-     * Differs from ( a * b ) % modulus in that it always returns non-negative value and never overflows.<br/>
+     * Modular multiplication.<br>
+     * Returns ( a * b )( mod m ).<br>
+     * Differs from ( a * b ) % modulus in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1109,9 +1109,9 @@ public class MathUtils
     }
   
     /**
-     * Modular multiplication.<br/>
-     * Returns ( a * b )( mod m ).<br/>
-     * Differs from ( a * b ) % modulus in that it always returns non-negative value and never overflows.<br/>
+     * Modular multiplication.<br>
+     * Returns ( a * b )( mod m ).<br>
+     * Differs from ( a * b ) % modulus in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1191,45 +1191,45 @@ public class MathUtils
      * <li>increment = m / gcd</li>
      * <li>x<sub>0</sub> = a / gcd * {@link #modInverse}( b, m )</li>
      * <li>gcd = {@link #gcd}( b, m )</li></ul>
-     * If a % gcd != 0 then the equation cannot be solved.<br/>
+     * If a % gcd != 0 then the equation cannot be solved.<br>
      * The value returned is a tuple ( x<sub>0</sub>, increment, quantity ),
      * where quantity is the quantity of solutions, it equals to gcd.
-     * If there's no solution, a tuple ( {@link #NOT_FOUND}, 0, 0 ) is returned.</p>
+     * If there's no solution, a tuple ( {@link #NOT_FOUND}, 0, 0 ) is returned.
      * <p>A simple loop to print all solutions (it handles situation when
-     * solution[ 2 ] == Integer.MIN_VALUE - see section below):<br/>
-     * <code>int solution[] = modDivide( a, b, m );<br/>
-     * int x = solution[ 0 ];<br/>
-     * int increment = solution[ 1 ];<br/>
-     * for ( int k = -solution[ 2 ]; k &lt; 0; k++ )<br/>
-     * {<br/>
-     * &nbsp;&nbsp;&nbsp;&nbsp;System.out.println( x );<br/>
-     * &nbsp;&nbsp;&nbsp;&nbsp;x += increment;<br/>
-     * }</code></p>
-     * <p><b>Examples:</b><br/><br/>
-     * <b>modDivide( 5, 3, 7 )</b><br/>
-     * modDivide( 5, 3, 7 ) = ( 5 / 3 )( mod 7 ) = ( 5 * ( 3<sup>-1</sup>( mod 7 ) ) )( mod 7 ) = ( 5 * 5 )( mod 7 ) = 4( mod 7 )<br/>
-     * <i>Check:</i> ( 4 * 3 )( mod 7 ) = 12( mod 7 ) = 5( mod 7 )<br/>
-     * <i>Returned value:</i> [ 4, 7, 1 ]<br/><br/>
-     * <b>modDivide( 4, 2, 6 )</b><br/>
-     * gcd = gcd( 2, 6 ) = 2<br/>
-     * modDivide( 4 / gcd, 2 / gcd, 6 / gcd ) = modDivide( 2, 1, 3 ) = ( 2 * ( 1<sup>-1</sup>( mod 3 ) ) )( mod 3 ) = ( 2 * 1 )( mod 3 ) = 2( mod 3 )<br/>
-     * modDivide( 4, 2, 6 ) = ( 2 + 6 / gcd * k )( mod 6 ) = ( 2 + 3 * k )( mod 6 ), where 0 &le; k &lt; gcd = 2, so there are two solutions: 2 and 5<br/>
-     * <i>Check:</i> ( 2 * ( 2 + 3 * 0 ) )( mod 6 ) = ( 2 * 2 )( mod 6 ) = 4( mod 6 )<br/>
-     * <i>Check:</i> ( 2 * ( 2 + 3 * 1 ) )( mod 6 ) = ( 2 * 5 )( mod 6 ) = 4( mod 6 )<br/>
-     * <i>Returned value:</i> [ 2, 3, 2 ]</p>
-     * <p>About Integer.MIN_VALUE:<br/>
+     * solution[ 2 ] == Integer.MIN_VALUE - see section below):<br>
+     * <code>int solution[] = modDivide( a, b, m );<br>
+     * int x = solution[ 0 ];<br>
+     * int increment = solution[ 1 ];<br>
+     * for ( int k = -solution[ 2 ]; k &lt; 0; k++ )<br>
+     * {<br>
+     * &nbsp;&nbsp;&nbsp;&nbsp;System.out.println( x );<br>
+     * &nbsp;&nbsp;&nbsp;&nbsp;x += increment;<br>
+     * }</code>
+     * <p><b>Examples:</b><br><br>
+     * <b>modDivide( 5, 3, 7 )</b><br>
+     * modDivide( 5, 3, 7 ) = ( 5 / 3 )( mod 7 ) = ( 5 * ( 3<sup>-1</sup>( mod 7 ) ) )( mod 7 ) = ( 5 * 5 )( mod 7 ) = 4( mod 7 )<br>
+     * <i>Check:</i> ( 4 * 3 )( mod 7 ) = 12( mod 7 ) = 5( mod 7 )<br>
+     * <i>Returned value:</i> [ 4, 7, 1 ]<br><br>
+     * <b>modDivide( 4, 2, 6 )</b><br>
+     * gcd = gcd( 2, 6 ) = 2<br>
+     * modDivide( 4 / gcd, 2 / gcd, 6 / gcd ) = modDivide( 2, 1, 3 ) = ( 2 * ( 1<sup>-1</sup>( mod 3 ) ) )( mod 3 ) = ( 2 * 1 )( mod 3 ) = 2( mod 3 )<br>
+     * modDivide( 4, 2, 6 ) = ( 2 + 6 / gcd * k )( mod 6 ) = ( 2 + 3 * k )( mod 6 ), where 0 &le; k &lt; gcd = 2, so there are two solutions: 2 and 5<br>
+     * <i>Check:</i> ( 2 * ( 2 + 3 * 0 ) )( mod 6 ) = ( 2 * 2 )( mod 6 ) = 4( mod 6 )<br>
+     * <i>Check:</i> ( 2 * ( 2 + 3 * 1 ) )( mod 6 ) = ( 2 * 5 )( mod 6 ) = 4( mod 6 )<br>
+     * <i>Returned value:</i> [ 2, 3, 2 ]
+     * <p>About Integer.MIN_VALUE:<br>
      * First solution, increment and quantity are non-negative, except for special cases of MIN_VALUE.<ul>
      * <li>If b = 0 or MIN_VALUE and m = MIN_VALUE then solutions quantity (gcd) equals to MIN_VALUE (is negative).</li>
      * <li>If b &ne; 2<sup>k</sup> for any integer k and m = MIN_VALUE then solutions quantity (gcd) equals to 1 (one) and increment = MIN_VALUE.</li>
      * <li>First solution is never negative. {@link #NOT_FOUND} is used to indicate that the solution doesn't exist.</li></ul>
      * So increment = MIN_VALUE doesn't matter due to having only one solution (the increment won't be used).
-     * The only exception situation is b = 0 or MIN_VALUE and m = MIN_VALUE leading to solutions quantity = MIN_VALUE.</p>
+     * The only exception situation is b = 0 or MIN_VALUE and m = MIN_VALUE leading to solutions quantity = MIN_VALUE.
      * @param a the dividend
      * @param b the divisor
      * @param m the modulus
      * @return a tuple ( first solution x<sub>0</sub>, increment, quantity ),
      * which produces a set of solutions of equation ( x * b )( mod m ) = a
-     * in the form x = x<sub>0</sub> + increment * k, where k is integer, 0 &le; k &lt; quantity.<br/>
+     * in the form x = x<sub>0</sub> + increment * k, where k is integer, 0 &le; k &lt; quantity.<br>
      * If there's no solution, a tuple ( {@link #NOT_FOUND}, 0, 0 ) is returned.
      */
     public static int[] modDivide( int a, int b, int m )
@@ -1278,45 +1278,45 @@ public class MathUtils
      * <li>increment = m / gcd</li>
      * <li>x<sub>0</sub> = a / gcd * {@link #modInverse}( b, m )</li>
      * <li>gcd = {@link #gcd}( b, m )</li></ul>
-     * If a % gcd != 0 then the equation cannot be solved.<br/>
+     * If a % gcd != 0 then the equation cannot be solved.<br>
      * The value returned is a tuple ( x<sub>0</sub>, increment, quantity ),
      * where quantity is the quantity of solutions, it equals to gcd.
-     * If there's no solution, a tuple ( {@link #NOT_FOUND}, 0, 0 ) is returned.</p>
+     * If there's no solution, a tuple ( {@link #NOT_FOUND}, 0, 0 ) is returned.
      * <p>A simple loop to print all solutions (it handles situation when
-     * solution[ 2 ] == Long.MIN_VALUE - see section below):<br/>
-     * <code>long solution[] = modDivide( a, b, m );<br/>
-     * long x = solution[ 0 ];<br/>
-     * long increment = solution[ 1 ];<br/>
-     * for ( long k = -solution[ 2 ]; k &lt; 0L; k++ )<br/>
-     * {<br/>
-     * &nbsp;&nbsp;&nbsp;&nbsp;System.out.println( x );<br/>
-     * &nbsp;&nbsp;&nbsp;&nbsp;x += increment;<br/>
-     * }</code></p>
-     * <p><b>Examples:</b><br/><br/>
-     * <b>modDivide( 5, 3, 7 )</b><br/>
-     * modDivide( 5, 3, 7 ) = ( 5 / 3 )( mod 7 ) = ( 5 * ( 3<sup>-1</sup>( mod 7 ) ) )( mod 7 ) = ( 5 * 5 )( mod 7 ) = 4( mod 7 )<br/>
-     * <i>Check:</i> ( 4 * 3 )( mod 7 ) = 12( mod 7 ) = 5( mod 7 )<br/>
-     * <i>Returned value:</i> [ 4, 7, 1 ]<br/><br/>
-     * <b>modDivide( 4, 2, 6 )</b><br/>
-     * gcd = gcd( 2, 6 ) = 2<br/>
-     * modDivide( 4 / gcd, 2 / gcd, 6 / gcd ) = modDivide( 2, 1, 3 ) = ( 2 * ( 1<sup>-1</sup>( mod 3 ) ) )( mod 3 ) = ( 2 * 1 )( mod 3 ) = 2( mod 3 )<br/>
-     * modDivide( 4, 2, 6 ) = ( 2 + 6 / gcd * k )( mod 6 ) = ( 2 + 3 * k )( mod 6 ), where 0 &le; k &lt; gcd = 2, so there are two solutions: 2 and 5<br/>
-     * <i>Check:</i> ( 2 * ( 2 + 3 * 0 ) )( mod 6 ) = ( 2 * 2 )( mod 6 ) = 4( mod 6 )<br/>
-     * <i>Check:</i> ( 2 * ( 2 + 3 * 1 ) )( mod 6 ) = ( 2 * 5 )( mod 6 ) = 4( mod 6 )<br/>
-     * <i>Returned value:</i> [ 2, 3, 2 ]</p>
-     * <p>About Long.MIN_VALUE:<br/>
+     * solution[ 2 ] == Long.MIN_VALUE - see section below):<br>
+     * <code>long solution[] = modDivide( a, b, m );<br>
+     * long x = solution[ 0 ];<br>
+     * long increment = solution[ 1 ];<br>
+     * for ( long k = -solution[ 2 ]; k &lt; 0L; k++ )<br>
+     * {<br>
+     * &nbsp;&nbsp;&nbsp;&nbsp;System.out.println( x );<br>
+     * &nbsp;&nbsp;&nbsp;&nbsp;x += increment;<br>
+     * }</code>
+     * <p><b>Examples:</b><br><br>
+     * <b>modDivide( 5, 3, 7 )</b><br>
+     * modDivide( 5, 3, 7 ) = ( 5 / 3 )( mod 7 ) = ( 5 * ( 3<sup>-1</sup>( mod 7 ) ) )( mod 7 ) = ( 5 * 5 )( mod 7 ) = 4( mod 7 )<br>
+     * <i>Check:</i> ( 4 * 3 )( mod 7 ) = 12( mod 7 ) = 5( mod 7 )<br>
+     * <i>Returned value:</i> [ 4, 7, 1 ]<br><br>
+     * <b>modDivide( 4, 2, 6 )</b><br>
+     * gcd = gcd( 2, 6 ) = 2<br>
+     * modDivide( 4 / gcd, 2 / gcd, 6 / gcd ) = modDivide( 2, 1, 3 ) = ( 2 * ( 1<sup>-1</sup>( mod 3 ) ) )( mod 3 ) = ( 2 * 1 )( mod 3 ) = 2( mod 3 )<br>
+     * modDivide( 4, 2, 6 ) = ( 2 + 6 / gcd * k )( mod 6 ) = ( 2 + 3 * k )( mod 6 ), where 0 &le; k &lt; gcd = 2, so there are two solutions: 2 and 5<br>
+     * <i>Check:</i> ( 2 * ( 2 + 3 * 0 ) )( mod 6 ) = ( 2 * 2 )( mod 6 ) = 4( mod 6 )<br>
+     * <i>Check:</i> ( 2 * ( 2 + 3 * 1 ) )( mod 6 ) = ( 2 * 5 )( mod 6 ) = 4( mod 6 )<br>
+     * <i>Returned value:</i> [ 2, 3, 2 ]
+     * <p>About Long.MIN_VALUE:<br>
      * First solution, increment and quantity are non-negative, except for special cases of MIN_VALUE.<ul>
      * <li>If b = 0 or MIN_VALUE and m = MIN_VALUE then solutions quantity (gcd) equals to MIN_VALUE (is negative).</li>
      * <li>If b &ne; 2<sup>k</sup> for any integer k and m = MIN_VALUE then solutions quantity (gcd) equals to 1 (one) and increment = MIN_VALUE.</li>
      * <li>First solution is never negative. {@link #NOT_FOUND} is used to indicate that the solution doesn't exist.</li></ul>
      * So increment = MIN_VALUE doesn't matter due to having only one solution (the increment won't be used).
-     * The only exception situation is b = 0 or MIN_VALUE and m = MIN_VALUE leading to solutions quantity = MIN_VALUE.</p>
+     * The only exception situation is b = 0 or MIN_VALUE and m = MIN_VALUE leading to solutions quantity = MIN_VALUE.
      * @param a the dividend
      * @param b the divisor
      * @param m the modulus
      * @return a tuple ( first solution x<sub>0</sub>, increment, quantity ),
      * which produces a set of solutions of equation ( x * b )( mod m ) = a
-     * in the form x = x<sub>0</sub> + increment * k, where k is integer, 0 &le; k &lt; quantity.<br/>
+     * in the form x = x<sub>0</sub> + increment * k, where k is integer, 0 &le; k &lt; quantity.<br>
      * If there's no solution, a tuple ( {@link #NOT_FOUND}, 0, 0 ) is returned.
      */
     public static long[] modDivide( long a, long b, long m )
@@ -1364,19 +1364,19 @@ public class MathUtils
     }
     
     /**
-     * Returns s = a<sup>-1</sup> (mod m), s is such a number that (s * a) (mod m) = 1.<br/>
+     * Returns s = a<sup>-1</sup> (mod m), s is such a number that (s * a) (mod m) = 1.<br>
      * If such number s doesn't exist, {@link #NOT_FOUND} is returned (if a and m are not coprime). Notable cases:<ul>
      * <li>If m &lt; 0, the result is equivalent to modInverse( a, -m ).</li>
      * <li>If m = 0 then {@link #NOT_FOUND} is returned.</li>
      * <li>If m = 1 then 0 is always returned.</li>
      * <li>If m &gt; 1 and a = 0 then {@link #NOT_FOUND} is returned.</li>
      * <li>If m &gt; 1, m is prime and 0 &lt; a &lt; m then the result is positive.</li></ul>
-     * The result is always non-negative if it exists, or {@link #NOT_FOUND} otherwise.<br/>
+     * The result is always non-negative if it exists, or {@link #NOT_FOUND} otherwise.<br>
      * http://en.wikipedia.org/wiki/Modular_multiplicative_inverse
      * @param a value
      * @param m modulus
-     * @return a<sup>-1</sup> (mod m),<br/>
-     * or {@link #NOT_FOUND} if the multiplicative inverse of a mod m doesn't exist (a and m are not coprime),<br/>
+     * @return a<sup>-1</sup> (mod m),<br>
+     * or {@link #NOT_FOUND} if the multiplicative inverse of a mod m doesn't exist (a and m are not coprime),<br>
      * or {@link #NOT_FOUND} if m = 0 (division by zero)
      */
     public static int modInverse( int a, int m )
@@ -1415,19 +1415,19 @@ public class MathUtils
     }
 
     /**
-     * Returns s = a<sup>-1</sup> (mod m), s is such a number that (s * a) (mod m) = 1.<br/>
+     * Returns s = a<sup>-1</sup> (mod m), s is such a number that (s * a) (mod m) = 1.<br>
      * If such number s doesn't exist, {@link #NOT_FOUND} is returned (if a and m are not coprime). Notable cases:<ul>
      * <li>If m &lt; 0, the result is equivalent to modInverse( a, -m ).</li>
      * <li>If m = 0 then {@link #NOT_FOUND} is returned.</li>
      * <li>If m = 1 then 0 is always returned.</li>
      * <li>If m &gt; 1 and a = 0 then {@link #NOT_FOUND} is returned.</li>
      * <li>If m &gt; 1, m is prime and 0 &lt; a &lt; m then the result is positive.</li></ul>
-     * The result is always non-negative if it exists, or {@link #NOT_FOUND} otherwise.<br/>
+     * The result is always non-negative if it exists, or {@link #NOT_FOUND} otherwise.<br>
      * http://en.wikipedia.org/wiki/Modular_multiplicative_inverse
      * @param a value
      * @param m modulus
-     * @return a<sup>-1</sup> (mod m),<br/>
-     * or {@link #NOT_FOUND} if the multiplicative inverse of a mod m doesn't exist (a and m are not coprime),<br/>
+     * @return a<sup>-1</sup> (mod m),<br>
+     * or {@link #NOT_FOUND} if the multiplicative inverse of a mod m doesn't exist (a and m are not coprime),<br>
      * or {@link #NOT_FOUND} if m = 0 (division by zero)
      */
     public static long modInverse( long a, long m )
@@ -1473,8 +1473,8 @@ public class MathUtils
      * @param base the base
      * @param exponent the exponent
      * @param m the modulus
-     * @return base<sup>exponent</sup> (mod m),<br/>
-     * or {@link #NOT_FOUND} if exponent &lt; 0 and base is not relatively prime to m,<br/>
+     * @return base<sup>exponent</sup> (mod m),<br>
+     * or {@link #NOT_FOUND} if exponent &lt; 0 and base is not relatively prime to m,<br>
      * or {@link #NOT_FOUND} if m = 0 (division by zero)
      */
     public static int modPow( long base, long exponent, int m )
@@ -1522,8 +1522,8 @@ public class MathUtils
      * @param base the base
      * @param exponent the exponent
      * @param m the modulus
-     * @return base<sup>exponent</sup> (mod m),<br/>
-     * or {@link #NOT_FOUND} if exponent &lt; 0 and base is not relatively prime to m,<br/>
+     * @return base<sup>exponent</sup> (mod m),<br>
+     * or {@link #NOT_FOUND} if exponent &lt; 0 and base is not relatively prime to m,<br>
      * or {@link #NOT_FOUND} if m = 0 (division by zero)
      */
     public static long modPow( long base, long exponent, long m )
@@ -1542,7 +1542,7 @@ public class MathUtils
     }
     
     /**
-     * Extended Euclidean greatest common divisor (GCD) algorithm function.<br/>
+     * Extended Euclidean greatest common divisor (GCD) algorithm function.<br>
      * A tuple ( gcd, x, y ) is returned, where gcd is greatest common divisor of a and b,
      * x and y are integers such that x * a + y * b = gcd. The first value, gcd, is positive
      * except for these cases:<ul>
@@ -1584,7 +1584,7 @@ public class MathUtils
     }
     
     /**
-     * Extended Euclidean greatest common divisor (GCD) algorithm function.<br/>
+     * Extended Euclidean greatest common divisor (GCD) algorithm function.<br>
      * A tuple ( gcd, x, y ) is returned, where gcd is greatest common divisor of a and b,
      * x and y are integers such that x * a + y * b = gcd. The first value, gcd, is positive
      * except for these cases:<ul>
@@ -1626,18 +1626,18 @@ public class MathUtils
     }
 
     /**
-     * Greatest common divisor.<br/>
-     * http://en.wikipedia.org/wiki/Greatest_common_divisor<br/>
-     * gcd( 6, 9 ) = 3<br/>
-     * gcd( 4, 9 ) = 1<br/>
-     * gcd( 0, 9 ) = 9 - see: http://math.stackexchange.com/questions/27719/what-is-gcd0-a-where-a-is-a-positive-integer<br/>
-     * gcd( 0, 0 ) = 0 - this is the only situation when the result is zero.<br/>
-     * gcd( 0, Integer.MIN_VALUE ) = Integer.MIN_VALUE<br/>
-     * gcd( Integer.MIN_VALUE, 0 ) = Integer.MIN_VALUE<br/>
+     * Greatest common divisor.<br>
+     * http://en.wikipedia.org/wiki/Greatest_common_divisor<br>
+     * gcd( 6, 9 ) = 3<br>
+     * gcd( 4, 9 ) = 1<br>
+     * gcd( 0, 9 ) = 9 - see: http://math.stackexchange.com/questions/27719/what-is-gcd0-a-where-a-is-a-positive-integer<br>
+     * gcd( 0, 0 ) = 0 - this is the only situation when the result is zero.<br>
+     * gcd( 0, Integer.MIN_VALUE ) = Integer.MIN_VALUE<br>
+     * gcd( Integer.MIN_VALUE, 0 ) = Integer.MIN_VALUE<br>
      * gcd( Integer.MIN_VALUE, Integer.MIN_VALUE ) = Integer.MIN_VALUE
      * - these are the only situations when the result is negative,
-     * because abs( Integer.MIN_VALUE ) cannot fit in int.<br/>
-     * gcd( a, b ) = gcd( -a, b ) = gcd( a, -b ) = gcd( -a, -b ) = gcd( b, a )<br/>
+     * because abs( Integer.MIN_VALUE ) cannot fit in int.<br>
+     * gcd( a, b ) = gcd( -a, b ) = gcd( a, -b ) = gcd( -a, -b ) = gcd( b, a )<br>
      * The result is always positive except four exceptional situations described above.
      * @param a first number
      * @param b second number
@@ -1672,18 +1672,18 @@ public class MathUtils
     }
 
     /**
-     * Greatest common divisor.<br/>
-     * http://en.wikipedia.org/wiki/Greatest_common_divisor<br/>
-     * gcd( 6, 9 ) = 3<br/>
-     * gcd( 4, 9 ) = 1<br/>
-     * gcd( 0, 9 ) = 9 - see: http://math.stackexchange.com/questions/27719/what-is-gcd0-a-where-a-is-a-positive-integer<br/>
-     * gcd( 0, 0 ) = 0 - this is the only situation when the result is zero.<br/>
-     * gcd( 0, Long.MIN_VALUE ) = Long.MIN_VALUE<br/>
-     * gcd( Long.MIN_VALUE, 0 ) = Long.MIN_VALUE<br/>
+     * Greatest common divisor.<br>
+     * http://en.wikipedia.org/wiki/Greatest_common_divisor<br>
+     * gcd( 6, 9 ) = 3<br>
+     * gcd( 4, 9 ) = 1<br>
+     * gcd( 0, 9 ) = 9 - see: http://math.stackexchange.com/questions/27719/what-is-gcd0-a-where-a-is-a-positive-integer<br>
+     * gcd( 0, 0 ) = 0 - this is the only situation when the result is zero.<br>
+     * gcd( 0, Long.MIN_VALUE ) = Long.MIN_VALUE<br>
+     * gcd( Long.MIN_VALUE, 0 ) = Long.MIN_VALUE<br>
      * gcd( Long.MIN_VALUE, Long.MIN_VALUE ) = Long.MIN_VALUE
      * - these are the only situations when the result is negative,
-     * because abs( Long.MIN_VALUE ) cannot fit in long.<br/>
-     * gcd( a, b ) = gcd( -a, b ) = gcd( a, -b ) = gcd( -a, -b ) = gcd( b, a )<br/>
+     * because abs( Long.MIN_VALUE ) cannot fit in long.<br>
+     * gcd( a, b ) = gcd( -a, b ) = gcd( a, -b ) = gcd( -a, -b ) = gcd( b, a )<br>
      * The result is always positive except four exceptional situations described above.
      * @param a first number
      * @param b second number
@@ -1727,11 +1727,11 @@ public class MathUtils
     }
     
     /**
-     * Least common multiple.<br/>
-     * http://en.wikipedia.org/wiki/Least_common_multiple<br/>
-     * lcm( 6, 9 ) = 18<br/>
-     * lcm( 4, 9 ) = 36<br/>
-     * lcm( 0, 9 ) = 0<br/>
+     * Least common multiple.<br>
+     * http://en.wikipedia.org/wiki/Least_common_multiple<br>
+     * lcm( 6, 9 ) = 18<br>
+     * lcm( 4, 9 ) = 36<br>
+     * lcm( 0, 9 ) = 0<br>
      * lcm( 0, 0 ) = 0
      * @param a first number
      * @param b second number
@@ -1744,11 +1744,11 @@ public class MathUtils
     }
     
     /**
-     * Least common multiple.<br/>
-     * http://en.wikipedia.org/wiki/Least_common_multiple<br/>
-     * lcm( 6, 9 ) = 18<br/>
-     * lcm( 4, 9 ) = 36<br/>
-     * lcm( 0, 9 ) = 0<br/>
+     * Least common multiple.<br>
+     * http://en.wikipedia.org/wiki/Least_common_multiple<br>
+     * lcm( 6, 9 ) = 18<br>
+     * lcm( 4, 9 ) = 36<br>
+     * lcm( 0, 9 ) = 0<br>
      * lcm( 0, 0 ) = 0
      * @param a first number
      * @param b second number
@@ -1761,11 +1761,11 @@ public class MathUtils
     }
     
     /**
-     * Least common multiple with overflow check.<br/>
-     * http://en.wikipedia.org/wiki/Least_common_multiple<br/>
-     * lcm( 6, 9 ) = 18<br/>
-     * lcm( 4, 9 ) = 36<br/>
-     * lcm( 0, 9 ) = 0<br/>
+     * Least common multiple with overflow check.<br>
+     * http://en.wikipedia.org/wiki/Least_common_multiple<br>
+     * lcm( 6, 9 ) = 18<br>
+     * lcm( 4, 9 ) = 36<br>
+     * lcm( 0, 9 ) = 0<br>
      * lcm( 0, 0 ) = 0
      * @param a first number
      * @param b second number
@@ -1785,11 +1785,11 @@ public class MathUtils
     }
     
     /**
-     * Least common multiple with overflow check.<br/>
-     * http://en.wikipedia.org/wiki/Least_common_multiple<br/>
-     * lcm( 6, 9 ) = 18<br/>
-     * lcm( 4, 9 ) = 36<br/>
-     * lcm( 0, 9 ) = 0<br/>
+     * Least common multiple with overflow check.<br>
+     * http://en.wikipedia.org/wiki/Least_common_multiple<br>
+     * lcm( 6, 9 ) = 18<br>
+     * lcm( 4, 9 ) = 36<br>
+     * lcm( 0, 9 ) = 0<br>
      * lcm( 0, 0 ) = 0
      * @param a first number
      * @param b second number
@@ -1810,9 +1810,9 @@ public class MathUtils
     
     /**
      * Returns integer square root of n.
-     * <p>Integer square root: http://en.wikipedia.org/wiki/Integer_square_root</p>
-     * <p>The greatest integer less than or equal to the square root of n. Example:<br/>
-     * isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 &gt; 27</p>
+     * <p>Integer square root: http://en.wikipedia.org/wiki/Integer_square_root
+     * <p>The greatest integer less than or equal to the square root of n. Example:<br>
+     * isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 &gt; 27
      * @param n radicand
      * @return trunc( sqrt( n ) )
      * @throws ArithmeticException if n &lt; 0
@@ -1829,9 +1829,9 @@ public class MathUtils
     
     /**
      * Returns integer square root of n.
-     * <p>Integer square root: http://en.wikipedia.org/wiki/Integer_square_root</p>
-     * <p>The greatest integer less than or equal to the square root of n. Example:<br/>
-     * isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 &gt; 27</p>
+     * <p>Integer square root: http://en.wikipedia.org/wiki/Integer_square_root
+     * <p>The greatest integer less than or equal to the square root of n. Example:<br>
+     * isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 &gt; 27
      * @param n radicand
      * @return trunc( sqrt( n ) )
      * @throws ArithmeticException if n &lt; 0
@@ -1847,9 +1847,9 @@ public class MathUtils
     
     /**
      * Returns integer square root of n treated as unsigned. The resulting int is unsigned too.
-     * <p>Integer square root: http://en.wikipedia.org/wiki/Integer_square_root</p>
-     * <p>The greatest integer less than or equal to the square root of n. Example:<br/>
-     * isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 &gt; 27</p>
+     * <p>Integer square root: http://en.wikipedia.org/wiki/Integer_square_root
+     * <p>The greatest integer less than or equal to the square root of n. Example:<br>
+     * isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 &gt; 27
      * @param n radicand
      * @return trunc( sqrt( n ) ) treated as unsigned
      */
@@ -1864,9 +1864,9 @@ public class MathUtils
     
     /**
      * Returns integer square root of n treated as unsigned.
-     * <p>Integer square root: http://en.wikipedia.org/wiki/Integer_square_root</p>
-     * <p>The greatest integer less than or equal to the square root of n. Example:<br/>
-     * isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 &gt; 27</p>
+     * <p>Integer square root: http://en.wikipedia.org/wiki/Integer_square_root
+     * <p>The greatest integer less than or equal to the square root of n. Example:<br>
+     * isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 &gt; 27
      * @param n radicand
      * @return trunc( sqrt( n ) )
      */
@@ -1879,9 +1879,9 @@ public class MathUtils
     
     /**
      * Returns integer cubic root of n.
-     * <p>If n &ge; 0 then the result is the greatest integer less than or equal to the cubic root of n.<br/>
-     * If n &lt; 0 then the result is the least integer greater than or equal to the cubic root of n. Example:<br/>
-     * icbrt( 28 ) = 3 because 3 * 3 * 3 = 27 &le; 28 and 4 * 4 * 4 = 64 &gt; 28</p>
+     * <p>If n &ge; 0 then the result is the greatest integer less than or equal to the cubic root of n.<br>
+     * If n &lt; 0 then the result is the least integer greater than or equal to the cubic root of n. Example:<br>
+     * icbrt( 28 ) = 3 because 3 * 3 * 3 = 27 &le; 28 and 4 * 4 * 4 = 64 &gt; 28
      * @param n radicand
      * @return trunc( cbrt( n ) )
      */
@@ -1903,9 +1903,9 @@ public class MathUtils
     
     /**
      * Returns integer cubic root of n.
-     * <p>If n &ge; 0 then the result is the greatest integer less than or equal to the cubic root of n.<br/>
-     * If n &lt; 0 then the result is the least integer greater than or equal to the cubic root of n. Example:<br/>
-     * icbrt( 28 ) = 3 because 3 * 3 * 3 = 27 &le; 28 and 4 * 4 * 4 = 64 &gt; 28</p>
+     * <p>If n &ge; 0 then the result is the greatest integer less than or equal to the cubic root of n.<br>
+     * If n &lt; 0 then the result is the least integer greater than or equal to the cubic root of n. Example:<br>
+     * icbrt( 28 ) = 3 because 3 * 3 * 3 = 27 &le; 28 and 4 * 4 * 4 = 64 &gt; 28
      * @param n radicand
      * @return trunc( cbrt( n ) )
      */
@@ -1926,21 +1926,21 @@ public class MathUtils
     
     /**
      * Returns integer root of n of given degree power.
-     * <p>If n &ge; 0 then the result is the greatest integer less than or equal to the root of n.<br/>
-     * If n &lt; 0 then the result is the least integer greater than or equal to the root of n. Examples:<br/>
-     * iroot( 28, 3 ) = 3 because 3<sup>3</sup> = 27 &le; 28 and 4<sup>3</sup> = 64 &gt; 28<br/>
-     * iroot( -28, 3 ) = -3 because (-3)<sup>3</sup> = -27 &ge; -28 and (-4)<sup>3</sup> = -64 &lt; -28</p>
+     * <p>If n &ge; 0 then the result is the greatest integer less than or equal to the root of n.<br>
+     * If n &lt; 0 then the result is the least integer greater than or equal to the root of n. Examples:<br>
+     * iroot( 28, 3 ) = 3 because 3<sup>3</sup> = 27 &le; 28 and 4<sup>3</sup> = 64 &gt; 28<br>
+     * iroot( -28, 3 ) = -3 because (-3)<sup>3</sup> = -27 &ge; -28 and (-4)<sup>3</sup> = -64 &lt; -28
      * <p>Special cases:<ul>
      * <li>power is even and n &lt; 0 =&gt; the answer should be a complex number and cannot be represented as rational integer</li>
      * <li>power = 0 and n = 0 =&gt; n<sup>1/power</sup> = 0<sup>&infin;</sup> = 0</li>
-     * <li>power = 0 and n = 1 =&gt; n<sup>1/power</sup> = 1<sup>&infin;</sup> - undefined<br/>
+     * <li>power = 0 and n = 1 =&gt; n<sup>1/power</sup> = 1<sup>&infin;</sup> - undefined<br>
      * See: http://math.stackexchange.com/questions/10490/why-is-1-infty-considered-to-be-an-indeterminate-form</li>
      * <li>power = 0 and n &gt; 1 =&gt; n<sup>1/power</sup> = n<sup>&infin;</sup> = &infin; - out of range</li>
      * <li>power &lt; 0 and n = 0 =&gt; n<sup>1/power</sup> = 1 / 0<sup>1/abs(power)</sup> = 1 / 0 = &infin; - out of range</li>
      * <li>power &lt; 0 and n = &plusmn;1 =&gt; n<sup>1/power</sup> = 1 / (&plusmn;1)<sup>1/abs(power)</sup> = &plusmn;1</li>
-     * <li>power &lt; 0 and abs(n) &gt; 1 =&gt; n<sup>1/power</sup> = 1 / n<sup>1/abs(power)</sup><br/>
-     * n<sup>1/abs(power)</sup> &gt; 1 =&gt; 1 / n<sup>1/abs(power)</sup> &lt; 1, so the answer is 0<br/>
-     * Examples: iroot( 16, -2 ) = trunc( 1 / root( 16, 2 ) ) = trunc( 1 / 4 ) = 0<br/>
+     * <li>power &lt; 0 and abs(n) &gt; 1 =&gt; n<sup>1/power</sup> = 1 / n<sup>1/abs(power)</sup><br>
+     * n<sup>1/abs(power)</sup> &gt; 1 =&gt; 1 / n<sup>1/abs(power)</sup> &lt; 1, so the answer is 0<br>
+     * Examples: iroot( 16, -2 ) = trunc( 1 / root( 16, 2 ) ) = trunc( 1 / 4 ) = 0<br>
      * iroot( 16, -16 ) = trunc( 1 / root( 16, 16 ) ) = trunc( 1 / 1.189 ) = trunc( 0.841 ) = 0</li></ul>
      * @param n radicand
      * @param power degree of a root
@@ -2081,21 +2081,21 @@ public class MathUtils
     
     /**
      * Returns integer root of n of given degree power.
-     * <p>If n &ge; 0 then the result is the greatest integer less than or equal to the root of n.<br/>
-     * If n &lt; 0 then the result is the least integer greater than or equal to the root of n. Examples:<br/>
-     * iroot( 28, 3 ) = 3 because 3<sup>3</sup> = 27 &le; 28 and 4<sup>3</sup> = 64 &gt; 28<br/>
-     * iroot( -28, 3 ) = -3 because (-3)<sup>3</sup> = -27 &ge; -28 and (-4)<sup>3</sup> = -64 &lt; -28</p>
+     * <p>If n &ge; 0 then the result is the greatest integer less than or equal to the root of n.<br>
+     * If n &lt; 0 then the result is the least integer greater than or equal to the root of n. Examples:<br>
+     * iroot( 28, 3 ) = 3 because 3<sup>3</sup> = 27 &le; 28 and 4<sup>3</sup> = 64 &gt; 28<br>
+     * iroot( -28, 3 ) = -3 because (-3)<sup>3</sup> = -27 &ge; -28 and (-4)<sup>3</sup> = -64 &lt; -28
      * <p>Special cases:<ul>
      * <li>power is even and n &lt; 0 =&gt; the answer should be a complex number and cannot be represented as rational integer</li>
      * <li>power = 0 and n = 0 =&gt; n<sup>1/power</sup> = 0<sup>&infin;</sup> = 0</li>
-     * <li>power = 0 and n = 1 =&gt; n<sup>1/power</sup> = 1<sup>&infin;</sup> - undefined<br/>
+     * <li>power = 0 and n = 1 =&gt; n<sup>1/power</sup> = 1<sup>&infin;</sup> - undefined<br>
      * See: http://math.stackexchange.com/questions/10490/why-is-1-infty-considered-to-be-an-indeterminate-form</li>
      * <li>power = 0 and n &gt; 1 =&gt; n<sup>1/power</sup> = n<sup>&infin;</sup> = &infin; - out of range</li>
      * <li>power &lt; 0 and n = 0 =&gt; n<sup>1/power</sup> = 1 / 0<sup>1/abs(power)</sup> = 1 / 0 = &infin; - out of range</li>
      * <li>power &lt; 0 and n = &plusmn;1 =&gt; n<sup>1/power</sup> = 1 / (&plusmn;1)<sup>1/abs(power)</sup> = &plusmn;1</li>
-     * <li>power &lt; 0 and abs(n) &gt; 1 =&gt; n<sup>1/power</sup> = 1 / n<sup>1/abs(power)</sup><br/>
-     * n<sup>1/abs(power)</sup> &gt; 1 =&gt; 1 / n<sup>1/abs(power)</sup> &lt; 1, so the answer is 0<br/>
-     * Examples: iroot( 16, -2 ) = trunc( 1 / root( 16, 2 ) ) = trunc( 1 / 4 ) = 0<br/>
+     * <li>power &lt; 0 and abs(n) &gt; 1 =&gt; n<sup>1/power</sup> = 1 / n<sup>1/abs(power)</sup><br>
+     * n<sup>1/abs(power)</sup> &gt; 1 =&gt; 1 / n<sup>1/abs(power)</sup> &lt; 1, so the answer is 0<br>
+     * Examples: iroot( 16, -2 ) = trunc( 1 / root( 16, 2 ) ) = trunc( 1 / 4 ) = 0<br>
      * iroot( 16, -16 ) = trunc( 1 / root( 16, 16 ) ) = trunc( 1 / 1.189 ) = trunc( 0.841 ) = 0</li></ul>
      * @param n radicand
      * @param power degree of a root
@@ -2218,13 +2218,13 @@ public class MathUtils
     }
     
     /**
-     * Given integer number n, find integer number s such that s<sup>2</sup> = n.<br/>
+     * Given integer number n, find integer number s such that s<sup>2</sup> = n.<br>
      * Return {@link #NOT_FOUND} if such number s doesn't exists.
-     * <p>Perfect square: http://en.wikipedia.org/wiki/Square_number</p>
-     * <p>Implementation is based on this discussion:<br/>
-     * http://stackoverflow.com/questions/295579/fastest-way-to-determine-if-an-integers-square-root-is-an-integer</p>
+     * <p>Perfect square: http://en.wikipedia.org/wiki/Square_number
+     * <p>Implementation is based on this discussion:<br>
+     * http://stackoverflow.com/questions/295579/fastest-way-to-determine-if-an-integers-square-root-is-an-integer
      * @param n an integer square number
-     * @return integer number s such that s<sup>2</sup> = n<br/>
+     * @return integer number s such that s<sup>2</sup> = n<br>
      * or {@link #NOT_FOUND} if such number s doesn't exist
      */
     public static long getBaseOfPerfectSquare( long n )
@@ -2287,7 +2287,7 @@ public class MathUtils
     }
     
     /**
-     * Determine if a given number n is perfect square.<br/>
+     * Determine if a given number n is perfect square.<br>
      * http://en.wikipedia.org/wiki/Square_number
      * @param n number to check
      * @return true if and only if there exists integer number s such that s<sup>2</sup> = n
@@ -2298,10 +2298,10 @@ public class MathUtils
     }
     
     /**
-     * Given integer number n, find integer number s such that s<sup>3</sup> = n.<br/>
+     * Given integer number n, find integer number s such that s<sup>3</sup> = n.<br>
      * Return {@link #NOT_FOUND} if such number s doesn't exists.
      * @param n an integer square number
-     * @return integer number s such that s<sup>3</sup> = n<br/>
+     * @return integer number s such that s<sup>3</sup> = n<br>
      * or {@link #NOT_FOUND} if such number s doesn't exist
      */
     public static long getBaseOfPerfectCube( long n )
@@ -2349,11 +2349,11 @@ public class MathUtils
     }
     
     /**
-     * Given integer numbers n and power, find integer number s such that s<sup>power</sup> = n.<br/>
+     * Given integer numbers n and power, find integer number s such that s<sup>power</sup> = n.<br>
      * Return {@link #NOT_FOUND} if such number s doesn't exists.
      * @param n an integer square number
      * @param power root degree
-     * @return integer number s such that s<sup>power</sup> = n<br/>
+     * @return integer number s such that s<sup>power</sup> = n<br>
      * or {@link #NOT_FOUND} if such number s doesn't exist
      */
     public static long getBaseOfPerfectPower( long n, int power )
@@ -2449,11 +2449,11 @@ public class MathUtils
     }
     
     /**
-     * There exist not so many perfect powers in long int range when power is between 16 and 62 (inclusively).<br/>
+     * There exist not so many perfect powers in long int range when power is between 16 and 62 (inclusively).<br>
      * This function enumerates them all and returns a corresponding root if it exists.
      * @param n an integer square number, n &ge; 2
      * @param power root degree, 16 &le; power &le; 62
-     * @return integer number s such that s<sup>power</sup> = n<br/>
+     * @return integer number s such that s<sup>power</sup> = n<br>
      * or {@link #NOT_FOUND} if that number s doesn't exist
      */
     private static long getBaseOfPerfectPowerFrom16To62( long n, int power )
@@ -2846,9 +2846,9 @@ public class MathUtils
      * number = s<sup>q</sup>, q &gt; 1. The value returned is a tuple ( s, q ).
      * The base s is minimal, the power q is maximal of all suitable tuples ( s, q ).
      * If such numbers s and q don't exist, null is returned.
-     * <p>See also: http://en.wikipedia.org/wiki/Perfect_power<br/>
+     * <p>See also: http://en.wikipedia.org/wiki/Perfect_power<br>
      * The implementation is based on algorithms described by Daniel J. Bernstein in
-     * "Detecting perfect powers in essentially linear time" (http://cr.yp.to/papers/powers.pdf).</p>
+     * "Detecting perfect powers in essentially linear time" (http://cr.yp.to/papers/powers.pdf).
      * <p>Special cases:<ul>
      * <li>number &gt; 1 =&gt; If number is a perfect power then s<sup>q</sup>
      * is returned, null otherwise. Numbers q and s are integers, q &gt; 1, s &gt; 1,
@@ -2858,12 +2858,12 @@ public class MathUtils
      * <li>number = -1 =&gt; (-1)<sup>3</sup></li>
      * <li>number &lt; -1 =&gt; If abs( number ) is a perfect power s<sup>q</sup>
      * and q = 2<sup>k</sup> * o, where o is odd, o &gt; 1, then (-s<sup>2^k</sup>)<sup>o</sup>
-     * is returned, otherwise null is the answer.</li></ul></p>
-     * <p>Examples:<br/>
+     * is returned, otherwise null is the answer.</li></ul>
+     * <p>Examples:<br>
      * 64 = 2<sup>6</sup> = 4<sup>3</sup> = 8<sup>2</sup> - minimal base is 2
-     * (maximal power is 6), so 2<sup>6</sup> is returned.<br/>
+     * (maximal power is 6), so 2<sup>6</sup> is returned.<br>
      * -64 = (-4)<sup>3</sup> &ne; (-2)<sup>6</sup> = +64, so (-4)<sup>3</sup>
-     * is returned.</p>
+     * is returned.
      * @param number the value to be checked for being a perfect power
      * @return a tuple ( s, q ) such that s<sup>q</sup> = number, q &gt; 1,
      * or null if a given number is not a perfect power
@@ -2946,7 +2946,7 @@ public class MathUtils
     
     /**
      * Determine if a given number n is a perfect power
-     * (if there exist integer numbers s and q such that n = s<sup>q</sup> and q &gt; 1).<br/>
+     * (if there exist integer numbers s and q such that n = s<sup>q</sup> and q &gt; 1).<br>
      * http://en.wikipedia.org/wiki/Perfect_power
      * @param n a number to be checked
      * @return true if and only if n is a perfect power
@@ -2961,7 +2961,7 @@ public class MathUtils
      * by the second where each argument and the result is interpreted
      * as an unsigned value.
      * <p>This method doesn't use long datatype unlike it's used in
-     * {@link java.lang.Integer#remainderUnsigned}.</p>
+     * {@link java.lang.Integer#remainderUnsigned}.
      * @param dividend the value to be divided
      * @param divisor the value doing the dividing
      * @return the unsigned remainder of the first argument divided by
@@ -2988,7 +2988,7 @@ public class MathUtils
      * by the second where each argument and the result is interpreted
      * as an unsigned value.
      * <p>This method doesn't use BigInteger datatype unlike it's used in
-     * {@link java.lang.Long#remainderUnsigned}.</p>
+     * {@link java.lang.Long#remainderUnsigned}.
      * @param dividend the value to be divided
      * @param divisor the value doing the dividing
      * @return the unsigned remainder of the first argument divided by
@@ -3018,9 +3018,9 @@ public class MathUtils
      * basic arithmetic operations of add, subtract, and multiply are
      * bit-wise identical if the two operands are regarded as both
      * being signed or both being unsigned. Therefore separate {@code
-     * addUnsigned}, etc. methods are not provided.</p>
+     * addUnsigned}, etc. methods are not provided.
      * <p>This method doesn't use long datatype unlike it's used in
-     * {@link java.lang.Integer#divideUnsigned}.</p>
+     * {@link java.lang.Integer#divideUnsigned}.
      * @param dividend the value to be divided
      * @param divisor the value doing the dividing
      * @return the unsigned quotient of the first argument divided by
@@ -3049,9 +3049,9 @@ public class MathUtils
      * basic arithmetic operations of add, subtract, and multiply are
      * bit-wise identical if the two operands are regarded as both
      * being signed or both being unsigned. Therefore separate {@code
-     * addUnsigned}, etc. methods are not provided.</p>
+     * addUnsigned}, etc. methods are not provided.
      * <p>This method doesn't use BigInteger datatype unlike it's used in
-     * {@link java.lang.Long#divideUnsigned}.</p>
+     * {@link java.lang.Long#divideUnsigned}.
      * @param dividend the value to be divided
      * @param divisor the value doing the dividing
      * @return the unsigned quotient of the first argument divided by

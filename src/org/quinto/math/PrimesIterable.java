@@ -49,11 +49,11 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
     
     /**
      * Generate a sequence of BigInteger prime numbers.
-     * <p>A sequence is generated lazily (next number is calculated only if required).</p>
-     * <p>The resulting sequence would contain exactly {@code quantity} numbers.</p>
-     * <p>The result can be enumerated in a for-loop construction, e.g.:<br/>
-     * <code>for ( BigInteger bi : getBigIntegerTotally( BigInteger.valueOf( 5 ) ) ) System.out.println( bi );</code><br/>
-     * The output of this example would contain 5 numbers: 2, 3, 5, 7, 11.</p>
+     * <p>A sequence is generated lazily (next number is calculated only if required).
+     * <p>The resulting sequence would contain exactly {@code quantity} numbers.
+     * <p>The result can be enumerated in a for-loop construction, e.g.:<br>
+     * <code>for ( BigInteger bi : getBigIntegerTotally( BigInteger.valueOf( 5 ) ) ) System.out.println( bi );</code><br>
+     * The output of this example would contain 5 numbers: 2, 3, 5, 7, 11.
      * @param quantity a quantity of numbers in the resulting sequence
      * @return a sequence of prime numbers
      * @throws IllegalArgumentException if quantity is null
@@ -66,11 +66,11 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
     
     /**
      * Generate a sequence of int prime numbers.
-     * <p>A sequence is generated lazily (next number is calculated only if required).</p>
-     * <p>The resulting sequence would contain exactly {@code quantity} numbers.</p>
-     * <p>The result can be enumerated in a for-loop construction, e.g.:<br/>
-     * <code>for ( int i : getIntegerTotally( 5 ) ) System.out.println( i );</code><br/>
-     * The output of this example would contain 5 numbers: 2, 3, 5, 7, 11.</p>
+     * <p>A sequence is generated lazily (next number is calculated only if required).
+     * <p>The resulting sequence would contain exactly {@code quantity} numbers.
+     * <p>The result can be enumerated in a for-loop construction, e.g.:<br>
+     * <code>for ( int i : getIntegerTotally( 5 ) ) System.out.println( i );</code><br>
+     * The output of this example would contain 5 numbers: 2, 3, 5, 7, 11.
      * @param quantity a quantity of numbers in the resulting sequence
      * @return a sequence of prime numbers
      */
@@ -81,11 +81,11 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
     
     /**
      * Generate a sequence of long prime numbers.
-     * <p>A sequence is generated lazily (next number is calculated only if required).</p>
-     * <p>The resulting sequence would contain exactly {@code quantity} numbers.</p>
-     * <p>The result can be enumerated in a for-loop construction, e.g.:<br/>
-     * <code>for ( long l : getLongTotally( 5L ) ) System.out.println( l );</code><br/>
-     * The output of this example would contain 5 numbers: 2, 3, 5, 7, 11.</p>
+     * <p>A sequence is generated lazily (next number is calculated only if required).
+     * <p>The resulting sequence would contain exactly {@code quantity} numbers.
+     * <p>The result can be enumerated in a for-loop construction, e.g.:<br>
+     * <code>for ( long l : getLongTotally( 5L ) ) System.out.println( l );</code><br>
+     * The output of this example would contain 5 numbers: 2, 3, 5, 7, 11.
      * @param quantity a quantity of numbers in the resulting sequence
      * @return a sequence of prime numbers
      */
@@ -96,11 +96,11 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
     
     /**
      * Generate a sequence of BigInteger prime numbers up to {@code max} value inclusively.
-     * <p>A sequence is generated lazily (next number is calculated only if required).</p>
-     * <p>All the numbers in a resulting sequence would lie in range [ 2 .. {@code max} ] (both sides included).</p>
-     * <p>The result can be enumerated in a for-loop construction, e.g.:<br/>
-     * <code>for ( BigInteger bi : getBigIntegerMax( BigInteger.valueOf( 5 ) ) ) System.out.println( bi );</code><br/>
-     * The output of this example would contain 3 numbers: 2, 3, 5.</p>
+     * <p>A sequence is generated lazily (next number is calculated only if required).
+     * <p>All the numbers in a resulting sequence would lie in range [ 2 .. {@code max} ] (both sides included).
+     * <p>The result can be enumerated in a for-loop construction, e.g.:<br>
+     * <code>for ( BigInteger bi : getBigIntegerMax( BigInteger.valueOf( 5 ) ) ) System.out.println( bi );</code><br>
+     * The output of this example would contain 3 numbers: 2, 3, 5.
      * @param max an upper inclusive bound of the sequence
      * @return a sequence of prime numbers
      * @throws IllegalArgumentException if max is null
@@ -113,11 +113,11 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
     
     /**
      * Generate a sequence of int prime numbers up to {@code max} value inclusively.
-     * <p>A sequence is generated lazily (next number is calculated only if required).</p>
-     * <p>All the numbers in a resulting sequence would lie in range [ 2 .. {@code max} ] (both sides included).</p>
-     * <p>The result can be enumerated in a for-loop construction, e.g.:<br/>
-     * <code>for ( int i : getIntegerMax( 5 ) ) System.out.println( i );</code><br/>
-     * The output of this example would contain 3 numbers: 2, 3, 5.</p>
+     * <p>A sequence is generated lazily (next number is calculated only if required).
+     * <p>All the numbers in a resulting sequence would lie in range [ 2 .. {@code max} ] (both sides included).
+     * <p>The result can be enumerated in a for-loop construction, e.g.:<br>
+     * <code>for ( int i : getIntegerMax( 5 ) ) System.out.println( i );</code><br>
+     * The output of this example would contain 3 numbers: 2, 3, 5.
      * @param max an upper inclusive bound of the sequence
      * @return a sequence of prime numbers
      */
@@ -128,11 +128,11 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
     
     /**
      * Generate a sequence of long prime numbers up to {@code max} value inclusively.
-     * <p>A sequence is generated lazily (next number is calculated only if required).</p>
-     * <p>All the numbers in a resulting sequence would lie in range [ 2 .. {@code max} ] (both sides included).</p>
-     * <p>The result can be enumerated in a for-loop construction, e.g.:<br/>
-     * <code>for ( long l : getLongMax( 5L ) ) System.out.println( l );</code><br/>
-     * The output of this example would contain 3 numbers: 2, 3, 5.</p>
+     * <p>A sequence is generated lazily (next number is calculated only if required).
+     * <p>All the numbers in a resulting sequence would lie in range [ 2 .. {@code max} ] (both sides included).
+     * <p>The result can be enumerated in a for-loop construction, e.g.:<br>
+     * <code>for ( long l : getLongMax( 5L ) ) System.out.println( l );</code><br>
+     * The output of this example would contain 3 numbers: 2, 3, 5.
      * @param max an upper inclusive bound of the sequence
      * @return a sequence of prime numbers
      */
@@ -247,13 +247,13 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
     }
     
     /**
-     * Seeking of the next prime number that is greater than or equal to n.<br/>
+     * Seeking of the next prime number that is greater than or equal to n.<br>
      * Examples: getNext( 7 ) = 7, getNext( 9 ) = 11.
-     * <p>For negative n, -getNext( -n ) is returned.</p>
+     * <p>For negative n, -getNext( -n ) is returned.
      * <p>The value of n cannot be too large or too small to overflow or underflow the search.
      * Integer.MAX_VALUE is prime, so getNext( Integer.MAX_VALUE ) = Integer.MAX_VALUE.
      * The only exclusion is Integer.MIN_VALUE which would return the largest prime number
-     * in integer datatype, that is getNext( Integer.MIN_VALUE ) = Integer.MAX_VALUE.</p>
+     * in integer datatype, that is getNext( Integer.MIN_VALUE ) = Integer.MAX_VALUE.
      * @author Howard Hinnant
      * http://stackoverflow.com/questions/4475996/given-prime-number-n-compute-the-next-prime
      * @param n lower inclusive limit of the searching prime number
@@ -300,14 +300,14 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
     }
     
     /**
-     * Seeking of the next prime number that is greater than or equal to n.<br/>
+     * Seeking of the next prime number that is greater than or equal to n.<br>
      * Examples: getNext( 7 ) = 7, getNext( 9 ) = 11.
-     * <p>For negative n, -getNext( -n ) is returned.</p>
+     * <p>For negative n, -getNext( -n ) is returned.
      * <p>If n is too large (n &gt; {@link #LAST_LONG_PRIME}) then the search overflows
      * and the negative prime number is returned. Its absolute value would be the largest
-     * possible to represent in long datatype.</p>
+     * possible to represent in long datatype.
      * <p>If n is negative and its absolute value is too small then the search underflows
-     * and the largest long prime number is returned.</p>
+     * and the largest long prime number is returned.
      * @author Howard Hinnant
      * http://stackoverflow.com/questions/4475996/given-prime-number-n-compute-the-next-prime
      * @param n lower inclusive limit of the searching prime number
@@ -356,10 +356,10 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
     }
     
     /**
-     * Seeking of the next prime number that is greater than or equal to n.<br/>
+     * Seeking of the next prime number that is greater than or equal to n.<br>
      * Examples: getNext( 7 ) = 7, getNext( 9 ) = 11.
-     * <p>For negative n, -getNext( -n ) is returned.</p>
-     * <p>If n is null then null is returned.</p>
+     * <p>For negative n, -getNext( -n ) is returned.
+     * <p>If n is null then null is returned.
      * @author Howard Hinnant
      * http://stackoverflow.com/questions/4475996/given-prime-number-n-compute-the-next-prime
      * @param n lower inclusive limit of the searching prime number

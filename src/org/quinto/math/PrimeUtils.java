@@ -59,7 +59,7 @@ public class PrimeUtils
     
     /**
      * Trial division deterministic test. Exponential time.
-     * <p>Implementation is based on <a href="http://stackoverflow.com/questions/2385909/most-elegant-way-to-write-isprime-in-java">this</a> StackOverflow question.</p>
+     * <p>Implementation is based on <a href="http://stackoverflow.com/questions/2385909/most-elegant-way-to-write-isprime-in-java">this</a> StackOverflow question.
      * @param n a number to check for primality
      * @return true if and only if absolute value of n is prime
      */
@@ -78,7 +78,7 @@ public class PrimeUtils
     
     /**
      * Trial division deterministic test. Exponential time.
-     * <p>Implementation is based on <a href="http://stackoverflow.com/questions/2385909/most-elegant-way-to-write-isprime-in-java">this</a> StackOverflow question.</p>
+     * <p>Implementation is based on <a href="http://stackoverflow.com/questions/2385909/most-elegant-way-to-write-isprime-in-java">this</a> StackOverflow question.
      * @param n a number to check for primality
      * @return true if and only if absolute value of n is prime
      */
@@ -155,7 +155,7 @@ public class PrimeUtils
      * Method to check if a given number is a Fermat number. Linear time.
      * https://en.wikipedia.org/wiki/Fermat_number
      * @param f a checking number
-     * @return true iff there exists a non-negative integer n such that f = 2<sup>2<sup>^n</sup></sup> + 1
+     * @return true iff there exists a non-negative integer n such that f = 2<sup>2^n</sup> + 1
      */
     public static boolean isFermatNumber( BigInteger f )
     {
@@ -184,7 +184,7 @@ public class PrimeUtils
 
     /**
      * Fermat number deterministic primality test
-     * (Fermat number is an integer in the form F<sub>n</sub> = 2<sup>2<sup>^n</sup></sup> + 1).
+     * (Fermat number is an integer in the form F<sub>n</sub> = 2<sup>2^n</sup> + 1).
      * Constant time.
      * @param f a checking number
      * @return true iff f is a Fermat number and f is prime
@@ -300,7 +300,7 @@ public class PrimeUtils
 
     /**
      * Strong pseudoprimality test with a given base.
-     * <p>https://en.wikipedia.org/wiki/Strong_pseudoprime</p>
+     * <p>https://en.wikipedia.org/wiki/Strong_pseudoprime
      * @param n an odd integer greater than one
      * @param base a checking pseudoprimality base
      * @return true iff n is prime or n is strong pseudoprime to a given base
@@ -362,7 +362,7 @@ public class PrimeUtils
      * Deterministic Miller primality test. Polynomial time.
      * <p>This test is correct for any integer in {@code long} range and does not rely on Riemann hypothesis.
      * <a href="https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Deterministic_variants_of_the_test">Verified</a> for all long int numbers.
-     * A probabilistic Miller-Rabin test is implemented in a standard Java class BigInteger.</p>
+     * A probabilistic Miller-Rabin test is implemented in a standard Java class BigInteger.
      * @see java.math.BigInteger#isProbablePrime
      * @param n a number to check for primality
      * @return true if and only if absolute value of n is prime
@@ -426,7 +426,7 @@ public class PrimeUtils
     /**
      * Deterministic Miller primality test. Polynomial time.
      * <p>This test relies on the truth of the generalized Riemann hypothesis (GRH) which is not proved yet.
-     * A probabilistic Miller-Rabin test is implemented in a standard Java class BigInteger and does not rely on GRH.</p>
+     * A probabilistic Miller-Rabin test is implemented in a standard Java class BigInteger and does not rely on GRH.
      * @see java.math.BigInteger#isProbablePrime
      * @param n a number to check for primality
      * @return true if and only if absolute value of n is prime
@@ -449,7 +449,7 @@ public class PrimeUtils
     
     /**
      * Probabilistic Miller-Rabin primality test. Polynomial time.
-     * <p>This test does not rely on GRH.</p>
+     * <p>This test does not rely on GRH.
      * @see java.math.BigInteger#isProbablePrime
      * @param n a number to check for primality
      * @return false if n is composite, true if n is a probable prime
@@ -496,7 +496,7 @@ public class PrimeUtils
      * <p>Gaussian integer is a complex number whose real and imaginary parts are both integers.
      * Prime gaussian number is a gaussian non-zero integer that has no divisors except the trivial ones.
      * Divisors of 1 are: 1, -1, i and -i. Trivial divisors of n are divisors of 1 and their multiplications by n.
-     * https://en.wikipedia.org/wiki/Gaussian_integer</p>
+     * https://en.wikipedia.org/wiki/Gaussian_integer
      * @param real a real part of a checking number
      * @param imaginary an imaginary part of a checking number
      * @return true iff real + i * imaginary is prime
@@ -517,7 +517,7 @@ public class PrimeUtils
      * <p>Gaussian integer is a complex number whose real and imaginary parts are both integers.
      * Prime gaussian number is a gaussian non-zero integer that has no divisors except the trivial ones.
      * Divisors of 1 are: 1, -1, i and -i. Trivial divisors of n are divisors of 1 and their multiplications by n.
-     * https://en.wikipedia.org/wiki/Gaussian_integer</p>
+     * https://en.wikipedia.org/wiki/Gaussian_integer
      * @param real a real part of a checking number
      * @param imaginary an imaginary part of a checking number
      * @return true iff real + i * imaginary is prime

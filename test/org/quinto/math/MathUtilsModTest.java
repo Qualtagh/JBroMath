@@ -613,7 +613,7 @@ public class MathUtilsModTest
      * @param m the modulus
      * @return a tuple ( first solution x<sub>0</sub>, increment, quantity ),
      * which produces a set of solutions of equation ( x * b )( mod m ) = a
-     * in the form x = x<sub>0</sub> + increment * k, where k is integer, 0 &le; k &lt; quantity.<br/>
+     * in the form x = x<sub>0</sub> + increment * k, where k is integer, 0 &le; k &lt; quantity.<br>
      * If there's no solution, a tuple ( NOT_FOUND, 0, 0 ) is returned.
      */
     public static int[] modDivideCheck( int a, int b, int m )
@@ -637,7 +637,7 @@ public class MathUtilsModTest
      * @param m the modulus
      * @return a tuple ( first solution x<sub>0</sub>, increment, quantity ),
      * which produces a set of solutions of equation ( x * b )( mod m ) = a
-     * in the form x = x<sub>0</sub> + increment * k, where k is integer, 0 &le; k &lt; quantity.<br/>
+     * in the form x = x<sub>0</sub> + increment * k, where k is integer, 0 &le; k &lt; quantity.<br>
      * If there's no solution, a tuple ( NOT_FOUND, 0, 0 ) is returned.
      */
     public static long[] modDivideCheck( long a, long b, long m )
