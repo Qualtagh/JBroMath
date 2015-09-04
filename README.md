@@ -8,8 +8,11 @@ Math utilities for Java.
 
 **toArabicNumerals** - converts string representation of Roman numerals to decimal value.
 There are three variants of this function:
+
     int toArabicNumeralsInt( String )
+
 A classical one, supports N for zero. Converts values to int in range from 0 to 3999 (inclusively). Performs input validation.
+
     double toArabicNumeralsDouble( String )
 Supports N for zero, S for a half and minus sign for negative values. Converts values to double. Does no verification. So any big value is acceptable (e.g., MMMMMMXI).
     int toArabicNumeralsExcelInt( String )
