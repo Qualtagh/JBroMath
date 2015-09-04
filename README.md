@@ -8,7 +8,9 @@ Contents:
 1. [MathUtils](#mathutils)
  1. [Conversion functions](#conversion-functions)
   1. [toArabicNumerals](#toarabicnumerals)
-  1. [toRomanNumerals](#toromannumerals)
+  2. [toRomanNumerals](#toromannumerals)
+ 2. [Modular arithmetics](#modular-arithmetics)
+2. [PrimeUtils](#primeutils)
 
 ## MathUtils
 
@@ -17,7 +19,8 @@ Contents:
 
 ### Conversion functions
 
-<a name="toarabicnumerals>**toArabicNumerals**</a> - converts string representation of Roman numerals to decimal value.
+<a name="toarabicnumerals"></a>
+**toArabicNumerals** - converts string representation of Roman numerals to decimal value.
 There are three variants of this function:
 ```java
 int toArabicNumeralsInt( String )
@@ -32,6 +35,7 @@ int toArabicNumeralsExcelInt( String )
 ```
 A variant identical to Microsoft Excel's ARABIC( text ) function. Supports minus sign. Accepts strings up to 255 characters (inclusively).
 ___
+<a name="toromannumerals"></a>
 **toRomanNumerals** - converts a decimal number to its string representation as Roman numerals.
 There are also three variants of this function:
 ```java
