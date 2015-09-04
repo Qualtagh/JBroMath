@@ -419,8 +419,13 @@ public class MathUtils
     /**
      * Converts integer decimal number to Roman numerals string.
      * @param number a value to be converted, <b>should be multiplied by 2</b><br>
-     * @param mode 0 - classic rules (the same as mode 0 in Microsoft Excel's ROMAN( text, mode ) function)<br>
-     * 1 - Microsoft Excel's "Minimal" (4) mode<br>
+     * @param mode 0 - classic form of Roman numerals:<br>
+     * I, V, X, L, C, D, M and subtractive sequences CM, CD, XC, XL, IX, IV are allowed<br>
+     * 1 - more concise: LM, LD, VC, VL are also allowed<br>
+     * 2 - more concise: XM, XD, IC, IL<br>
+     * 3 - more concise: VM, VD<br>
+     * 4 - minimal: IM, ID<br>
+     * 5 - absolutely minimal mode<br>
      * @param max permit values only in ( -max, max ) range, throw exception otherwise; should be positive<br>
      * @param permitZero permit zero input or throw exception<br>
      * @param permitNegative permit negative values as input or throw exception<br>
