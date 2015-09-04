@@ -7,8 +7,8 @@ Contents:
 
 1. [MathUtils](#mathutils)
  1. [Conversion functions](#conversion-functions)
-  1. [toArabicNumerals](#toarabicnumerals)
-  2. [toRomanNumerals](#toromannumerals)
+  - [toArabicNumerals](#toarabicnumerals)
+  - [toRomanNumerals](#toromannumerals)
  2. [Modular arithmetics](#modular-arithmetics)
 2. [PrimeUtils](#primeutils)
 
