@@ -23,7 +23,7 @@ Contents:
     1. [pow10](#pow10)
     1. [pow](#pow)
     1. [powExact](#powExact)
-  1. [Modular arithmetics](#modular-arithmetics)
+  1. [Modular arithmetic](#modular-arithmetic)
     1. [mod](#mod)
     1. [mods](#mods)
     1. [modAdd](#modAdd)
@@ -53,6 +53,15 @@ Contents:
     1. [uisqrt](#uisqrt)
     1. [remainderUnsigned](#remainderUnsigned)
     1. [divideUnsigned](#divideUnsigned)
+1. [BigUtils](#bigutils)
+  1. [Perfect powers](#perfect-powers-bigutils)
+    1. [getBaseOfPerfectSquare](#getBaseOfPerfectSquareBig)
+    1. [isPerfectSquare](#isPerfectSquareBig)
+  1. [Roots](#roots-bigutils)
+    1. [isqrt](#isqrtBig)
+  1. [Modular arithmetic](#modular-arithmetic-bigutils)
+    1. [mod](#modBig)
+    1. [mods](#modsBig)
 1. [PrimeUtils](#primeutils)
 
 ## MathUtils
@@ -243,7 +252,7 @@ Returns value of `x` raised in power `y` (x<sup>y</sup>), throwing an exception 
 
 Also, throws ArithmeticException if `x = 0` and `y < 0` (the result becomes infinite).
 ___
-### Modular arithmetics
+### Modular arithmetic
 
 <a name="mod"></a>
 ```java
@@ -473,7 +482,7 @@ The value returned is a tuple `( s, q )`. The base `s` is minimal, the power `q`
 
 If such numbers `s` and `q` don't exist, `null` is returned.
 ___
-<a name="getBaseOfPerfectPower"></a>
+<a name="isPerfectPower"></a>
 **isPerfectPower** - determine if a given number `n` is a perfect power.
 
 ```java
@@ -506,3 +515,73 @@ long divideUnsigned( long dividend, long divisor )
 Returns the unsigned quotient from dividing the first argument by the second where each argument and the result is interpreted as an unsigned value.
 
 This method is an optimized version of `Integer/Long.divideUnsigned`.
+___
+## BigUtils
+
+This class contains functions with BigInteger and BigDecimal arguments.
+
+- Test coverage: 100%
+- Javadoc coverage: 100%
+
+### Constants
+
+This class contains additional often used BigInteger (with `BI_` prefix) and BigDecimal (with `BD_` prefix) constants.
+
+- 0.5: BD_HALF
+- 2: BI_TWO, BD_TWO
+- 3: BI_THREE, BD_THREE
+- 4: BI_FOUR, BD_FOUR
+- 5: BI_FIVE, BD_FIVE
+- 9: BI_NINE
+- Integer.MIN_VALUE: BI_MIN_INT = -2<sup>31</sup>
+- Integer.MAX_VALUE: BI_MAX_INT = 2<sup>31</sup> - 1
+- Long.MIN_VALUE: BI_MIN_LONG = -2<sup>63</sup>
+- Long.MAX_VALUE: BI_MAX_LONG = 2<sup>63</sup> - 1
+- BI_MAX_LONG_PLUS_TWO = 2<sup>63</sup> + 1
+
+___
+### Perfect powers (BigUtils)
+
+<a name="getBaseOfPerfectSquareBig"></a>
+```java
+BigInteger getBaseOfPerfectSquare( BigInteger n )
+```
+Finds a root of a [perfect square](http://en.wikipedia.org/wiki/Square_number).
+
+Given integer number `n`, find integer number `s` such that s<sup>2</sup> = n.
+
+Returns `null` if such number `s` doesn't exists.
+___
+<a name="isPerfectSquareBig"></a>
+```java
+boolean isPerfectSquare( BigInteger n )
+```
+Determine if a given number `n` is a perfect square.
+___
+### Roots (BigUtils)
+
+<a name="isqrtBig"></a>
+```java
+BigInteger isqrt( BigInteger n ) throws ArithmeticException
+```
+Returns integer square root of `n`. Throws exception if `n < 0`.
+___
+### Modular arithmetic (BigUtils)
+
+<a name="modBig"></a>
+```java
+BigInteger mod( BigInteger v, BigInteger m ) throws ArithmeticException
+```
+Returns `v (mod m)`. The value returned lies in range `[ 0 .. |m| - 1 ]`.
+
+This method differs from `BigInteger.mod` in that it supports negative modulus (like primitive-type remainder): mod( x, m ) = mod( x, -m ).
+
+If `m = 0` then `ArithmeticException` is thrown.
+___
+<a name="modsBig"></a>
+```java
+BigInteger mods( BigInteger v, BigInteger m ) throws ArithmeticException
+```
+Signed mod. The value returned lies in range `[ -( |m| - 1 ) / 2 .. |m| / 2 ]`.
+
+If `m = 0` then `ArithmeticException` is thrown.

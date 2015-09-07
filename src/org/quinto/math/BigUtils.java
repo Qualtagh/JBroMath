@@ -206,7 +206,7 @@ public class BigUtils
      * @return v (mod m)
      * @throws ArithmeticException when m = 0
      */
-    public static BigInteger mod( BigInteger v, BigInteger m )
+    public static BigInteger mod( BigInteger v, BigInteger m ) throws ArithmeticException
     {
         return v.mod( m.abs() );
     }
