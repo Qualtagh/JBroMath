@@ -21,7 +21,7 @@ public class PrimeUtils
     }
     
     /**
-     * Deterministic primality test. Exponential time in worst case (current implementation, may be improved in future).
+     * Deterministic primality test. Polynomial time.
      * <ul><li>Negative number n is considered prime if -n is prime.</li>
      * <li>Numbers 0 and 1 aren't prime.</li>
      * <li>Examples of first prime numbers: 2, 3, 5, 7, 11, 13.</li></ul>
@@ -31,13 +31,12 @@ public class PrimeUtils
     public static boolean isPrime( BigInteger n )
     {
         n = n.abs();
-        int length = n.bitLength();
-        if ( length < 64 ) return isPrime( n.longValue() );
+        if ( n.bitLength() < 64 ) return isPrime( n.longValue() );
         if ( !n.testBit( 0 ) ) return false;
         // Some number classes have more efficient primality tests.
         // Use trial division if the number is small. Otherwise try to determine number class.
         // Mersenne numbers can be checked by Lucas-Lehmer test.
-        if ( isMersenneNumber( n ) ) return passesLucasLehmer( n, length );
+        if ( isMersenneNumber( n ) ) return passesLucasLehmer( n );
         // Fermat numbers can be checked by Pepin's test.
         // All numbers in BigInteger range have been verified
         // and only first 5 of them are prime: 3, 5, 17, 257 and 65537.
@@ -112,12 +111,12 @@ public class PrimeUtils
 
     /**
      * Lucas-Lehmer deterministic primality test for Mersenne numbers. Polynomial time.
-     * @param n a Mersenne number M<sub>p</sub> = 2<sup>p</sup> - 1
-     * @param p a base of n, i.e. p = log<sub>2</sub>( n + 1 )
+     * @param n a Mersenne number M<sub>p</sub> = 2<sup>p</sup> - 1, p is non-negative
      * @return true iff n is prime
      */
-    private static boolean passesLucasLehmer( BigInteger n, int p )
+    public static boolean passesLucasLehmer( BigInteger n )
     {
+        int p = n.bitLength();
         if ( p <= 1 ) return false;
         if ( p <= 3 ) return true;
         // Mersenne number can be prime only if its base is prime.
@@ -148,7 +147,7 @@ public class PrimeUtils
     public static boolean isMersennePrime( BigInteger n )
     {
         if ( !isMersenneNumber( n ) ) return false;
-        return passesLucasLehmer( n, n.bitLength() );
+        return passesLucasLehmer( n );
     }
 
     /**
@@ -215,11 +214,13 @@ public class PrimeUtils
      * Lucas probabilistic polynomial-time primality test.
      * This is a method {@code passesLucasLehmer} from a standard Java class BigInteger.
      * Used in Baillie-PSW primality test.
+     * https://en.wikipedia.org/wiki/Lucas_pseudoprime
+     * Not to be confused with https://en.wikipedia.org/wiki/Lucas_primality_test
      * @see java.math.BigInteger#passesLucasLehmer
      * @param n an odd integer greater than one, not a strong pseudoprime to base 2, not a perfect square
      * @return false if n is composite, true if n is a probable prime (with high probability)
      */
-    public static boolean passesLucas( BigInteger n )
+    public static boolean passesLucasPseudoprime( BigInteger n )
     {
         int z = 5;
         while ( jacobiSymbol( z, n ) != -1 ) z = z < 0 ? 2 - z : -( z + 2 );
@@ -456,7 +457,7 @@ public class PrimeUtils
      */
     public static boolean passesMillerRabin( BigInteger n )
     {
-        // Maximal certainity according to the implementation.
+        // Maximal certainty according to the implementation.
         return n.isProbablePrime( 100 );
     }
 
@@ -488,7 +489,7 @@ public class PrimeUtils
             if ( !passesMillerRabin( n, BigUtils.BI_TWO ) ) return false;
             if ( BigUtils.isPerfectSquare( n ) ) return false;
         }
-        return passesLucas( n );
+        return passesLucasPseudoprime( n );
     }
     
     /**
@@ -509,7 +510,41 @@ public class PrimeUtils
         // 2. Both a and b aren't zero and the norm a * a + b * b is a prime number.
         if ( real == 0L ) return Math.abs( imaginary ) % 4L == 3L && isPrime( imaginary );
         if ( imaginary == 0L ) return Math.abs( real ) % 4L == 3L && isPrime( real );
-        return isPrime( real * real + imaginary * imaginary );
+        try
+        {
+            real = Math.multiplyExact( real, real );
+            try
+            {
+                imaginary = Math.multiplyExact( imaginary, imaginary );
+                try
+                {
+                    real = Math.addExact( real, imaginary );
+                }
+                catch ( ArithmeticException e )
+                {
+                    // Overflow.
+                    BigInteger biReal = BigInteger.valueOf( real );
+                    BigInteger biImaginary = BigInteger.valueOf( imaginary );
+                    return isPrime( biReal.add( biImaginary ) );
+                }
+            }
+            catch ( ArithmeticException e )
+            {
+                // Overflow.
+                BigInteger biReal = BigInteger.valueOf( real );
+                BigInteger biImaginary = BigInteger.valueOf( imaginary );
+                return isPrime( biReal.add( biImaginary.multiply( biImaginary ) ) );
+            }
+        }
+        catch ( ArithmeticException e )
+        {
+            // Overflow.
+            BigInteger biReal = BigInteger.valueOf( real );
+            BigInteger biImaginary = BigInteger.valueOf( imaginary );
+            return isPrime( biReal.multiply( biReal ).add( biImaginary.multiply( biImaginary ) ) );
+        }
+        // No overflow.
+        return isPrime( real );
     }
     
     /**

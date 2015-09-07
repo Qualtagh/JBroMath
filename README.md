@@ -54,6 +54,7 @@ Contents:
     1. [remainderUnsigned](#remainderUnsigned)
     1. [divideUnsigned](#divideUnsigned)
 1. [BigUtils](#bigutils)
+  1. [Constants](#constants)
   1. [Perfect powers](#perfect-powers-bigutils)
     1. [getBaseOfPerfectSquare](#getBaseOfPerfectSquareBig)
     1. [isPerfectSquare](#isPerfectSquareBig)
@@ -63,6 +64,18 @@ Contents:
     1. [mod](#modBig)
     1. [mods](#modsBig)
 1. [PrimeUtils](#primeutils)
+    1. [isPrime](#isPrime)
+    1. [isGaussianPrime](#isGaussianPrime)
+    1. [isMersenneNumber](#isMersenneNumber)
+    1. [isMersennePrime](#isMersennePrime)
+    1. [isFermatNumber](#isFermatNumber)
+    1. [isFermatPrime](#isFermatPrime)
+    1. [passesTrialDivision](#passesTrialDivision)
+    1. [passesLucasLehmer](#passesLucasLehmer)
+    1. [passesLucasPseudoprime](#passesLucasPseudoprime)
+    1. [passesMillerRabin](#passesMillerRabin)
+    1. [passesMiller](#passesMiller)
+    1. [passesBailliePSW](#passesBailliePSW)
 
 ## MathUtils
 
@@ -585,3 +598,127 @@ BigInteger mods( BigInteger v, BigInteger m ) throws ArithmeticException
 Signed mod. The value returned lies in range `[ -( |m| - 1 ) / 2 .. |m| / 2 ]`.
 
 If `m = 0` then `ArithmeticException` is thrown.
+___
+## PrimeUtils
+
+This class contains functions for primality testing and proving.
+
+- Test coverage: 0% (planned)
+- Javadoc coverage: 100%
+
+<a name="isPrime"></a>
+```java
+boolean isPrime( long n )
+boolean isPrime( BigInteger n )
+```
+Deterministic primality test. Polynomial time (compared to the length of `n`).
+
+- Negative number `n` is considered (by methods of this class) prime if `-n` is prime.
+- Numbers 0 and 1 aren't prime.
+- `n` is prime if its only divisors are 1 and `n` itself. Otherwise `n` is composite.
+
+For performance reasons, BigInteger version uses Baillie-PSW test (for now) which isn't deterministic though no composite numbers were found yet that pass this test. So it's almost deterministic but would be replaced in future by some deterministic test.
+___
+<a name="isGaussianPrime"></a>
+```java
+boolean isGaussianPrime( long real, long imaginary )
+boolean isGaussianPrime( BigInteger real, BigInteger imaginary )
+```
+[Gaussian integer](https://en.wikipedia.org/wiki/Gaussian_integer) primality test.
+
+Gaussian integer is a complex number whose real and imaginary parts are both integers.
+Prime gaussian number is a gaussian non-zero integer that has no divisors except the trivial ones.
+
+Divisors of `1` are: `1`, `-1`, `i` and `-i`. Trivial divisors of `n` are divisors of `1` and their multiplications by `n`.
+___
+<a name="isMersenneNumber"></a>
+```java
+boolean isMersenneNumber( BigInteger n )
+```
+Method to check if a given number is a [Mersenne number](https://en.wikipedia.org/wiki/Mersenne_prime) (primality of the number is not checked). Linear time.
+___
+<a name="isMersennePrime"></a>
+```java
+boolean isMersennePrime( BigInteger n )
+```
+Mersenne numbers deterministic primality test (Mersenne number is an integer in the form M<sub>p</sub> = 2<sup>p</sup> - 1). Polynomial time.
+___
+<a name="isFermatNumber"></a>
+```java
+boolean isFermatNumber( BigInteger n )
+```
+Method to check if a given number is a [Fermat number](https://en.wikipedia.org/wiki/Fermat_number). Linear time.
+___
+<a name="isFermatPrime"></a>
+```java
+boolean isFermatPrime( BigInteger n )
+```
+Fermat number deterministic primality test (Fermat number is an integer in the form F<sub>n</sub> = 2<sup>2^n</sup> + 1). Constant time.
+___
+<a name="passesTrialDivision"></a>
+```java
+boolean passesTrialDivision( long n )
+boolean passesTrialDivision( BigInteger n )
+```
+Trial division deterministic test. Exponential time.
+___
+<a name="passesLucasLehmer"></a>
+```java
+boolean passesLucasLehmer( BigInteger n )
+```
+[Lucas-Lehmer](https://en.wikipedia.org/wiki/Lucas%E2%80%93Lehmer_primality_test) deterministic primality test for Mersenne numbers. Polynomial time.
+
+Argument `n` must be a Mersenne number. Use [isMersenneNumber](#isMersenneNumber) function to determine if it is.
+___
+<a name="passesLucasPseudoprime"></a>
+```java
+boolean passesLucasPseudoprime( BigInteger n )
+```
+[Lucas probabilistic](https://en.wikipedia.org/wiki/Lucas_pseudoprime) primality test. Polynomial time. Not to be confused with [Lucas test](https://en.wikipedia.org/wiki/Lucas_primality_test).
+
+If a number fails this test then it's definitely composite. Otherwise it's probably prime.
+
+Argument `n` must be an odd integer greater than one, not a strong pseudoprime to base 2, not a perfect square.
+___
+<a name="passesMillerRabin"></a>
+**passesMillerRabin** - probabilistic [Miller-Rabin](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test) primality test. Polynomial time.
+
+If a number fails this test then it's definitely composite. Otherwise it's probably prime.
+```java
+boolean passesMillerRabin( int n, int base )
+boolean passesMillerRabin( BigInteger n, BigInteger base )
+```
+[Strong pseudoprimality](https://en.wikipedia.org/wiki/Strong_pseudoprime) test with a given base.
+
+This method is an adaptation of the standard Java method `BigInteger.passesMillerRabin`.
+
+The difference is that the base is defined as an argument and is not generated randomly.
+```java
+boolean passesMillerRabin( BigInteger n )
+```
+This method tests `n` pseudoprimality against several random bases. It's similar to `BigInteger.isProbablePrime` with maximal certainty.
+
+This test does *not* rely on Riemann hypothesis ([GRH](https://en.wikipedia.org/wiki/Generalized_Riemann_hypothesis)).
+___
+<a name="passesMiller"></a>
+**passesMiller** - deterministic [Miller](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Deterministic_variants_of_the_test) primality test. Polynomial time.
+
+```java
+boolean passesMiller( long n )
+```
+This method tests `n` pseudoprimality against several predefined bases. It's verified to be correct and does *not* rely on GRH.
+
+```java
+boolean passesMiller( BigInteger n )
+```
+This method *relies* on generalized Riemann hypothesis ([GRH](https://en.wikipedia.org/wiki/Generalized_Riemann_hypothesis)) which is not proved yet.
+___
+<a name="passesBailliePSW"></a>
+```java
+boolean passesBailliePSW( BigInteger n )
+```
+Probabilistic [Baillie-Pomerance-Selfridge-Wagstaff](http://en.wikipedia.org/wiki/Baillie%E2%80%93PSW_primality_test) primality test. Polynomial time.
+
+If a number fails this test then it's definitely composite. Otherwise it's probably prime.
+
+There are no composite numbers found that pass this test yet. All numbers in `long` range are verified.

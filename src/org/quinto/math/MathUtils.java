@@ -6,6 +6,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Pattern;
 
+/**
+ * Math functions with primitive-type arguments (byte, short, int, long, float, double).
+ */
 public class MathUtils
 {
     /**

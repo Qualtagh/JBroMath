@@ -3,6 +3,9 @@ package org.quinto.math;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+/**
+ * Math functions with BigInteger and BigDecimal arguments.
+ */
 public class BigUtils
 {
     /**
