@@ -60,7 +60,7 @@ public class MathUtilsConversionTest
     }
 
     @Test( timeout = 5000L )
-    public void toPlainStringCasual()
+    public void toPlainStringDoubleCasual()
     {
         LinkedHashMap< Double, String > mapping = new LinkedHashMap<>();
         mapping.put( Double.NaN, "NaN" );
@@ -117,13 +117,82 @@ public class MathUtilsConversionTest
     }
 
     @Test( timeout = 5000L )
-    public void toPlainStringRandom()
+    public void toPlainStringDoubleRandom()
     {
         for ( int i = 0; i < 50; i++ )
         {
             double v = RANDOM.nextDouble() * 1e20 - 1.5e15;
             String s = toPlainString( v );
             assertEquals( v, Double.parseDouble( s ), EXACT );
+            assertFalse( s.toLowerCase().contains( "e" ) );
+        }
+    }
+
+    @Test( timeout = 5000L )
+    public void toPlainStringFloatCasual()
+    {
+        LinkedHashMap< Float, String > mapping = new LinkedHashMap<>();
+        mapping.put( Float.NaN, "NaN" );
+        mapping.put( Float.POSITIVE_INFINITY, "Infinity" );
+        mapping.put( 0.0F, "0" );
+        mapping.put( 0.000000000000000000000000000000001F, "0.000000000000000000000000000000001" );
+        mapping.put( 0.00000000000000000000000000000001F, "0.00000000000000000000000000000001" );
+        mapping.put( 0.0000000000000000000000000000001F, "0.0000000000000000000000000000001" );
+        mapping.put( 0.000000000000000000000000000001F, "0.000000000000000000000000000001" );
+        mapping.put( 0.00000000000000000000000000001F, "0.00000000000000000000000000001" );
+        mapping.put( 0.0000000000000000000000000001F, "0.0000000000000000000000000001" );
+        mapping.put( 0.000000000000000000000000001F, "0.000000000000000000000000001" );
+        mapping.put( 0.00000000000000000000000001F, "0.00000000000000000000000001" );
+        mapping.put( 0.0000000000000000000000001F, "0.0000000000000000000000001" );
+        mapping.put( 0.000000000000000000000001F, "0.000000000000000000000001" );
+        mapping.put( 0.00000000000000000000001F, "0.00000000000000000000001" );
+        mapping.put( 0.0000000000000000000001F, "0.0000000000000000000001" );
+        mapping.put( 0.000000000000000000001F, "0.000000000000000000001" );
+        mapping.put( 0.00000000000000000001F, "0.00000000000000000001" );
+        mapping.put( 0.0000000000000000001F, "0.0000000000000000001" );
+        mapping.put( 0.000000000000000001F, "0.000000000000000001" );
+        mapping.put( 0.00000000000000001F, "0.00000000000000001" );
+        mapping.put( 0.0000000000000001F, "0.0000000000000001" );
+        mapping.put( 0.000000000000001F, "0.000000000000001" );
+        mapping.put( 0.00000000000001F, "0.00000000000001" );
+        mapping.put( 0.0000000000001F, "0.0000000000001" );
+        mapping.put( 0.000000000001F, "0.000000000001" );
+        mapping.put( 0.00000000001F, "0.00000000001" );
+        mapping.put( 0.0000000001F, "0.0000000001" );
+        mapping.put( 0.000000001F, "0.000000001" );
+        mapping.put( 0.00000001F, "0.00000001" );
+        mapping.put( 0.0000001F, "0.0000001" );
+        mapping.put( 0.000001F, "0.000001" );
+        mapping.put( 0.00001F, "0.00001" );
+        mapping.put( 0.0001F, "0.0001" );
+        mapping.put( 0.001F, "0.001" );
+        mapping.put( 0.01F, "0.01" );
+        mapping.put( 0.1F, "0.1" );
+        mapping.put( 1.0F, "1" );
+        mapping.put( 1.1F, "1.1" );
+        mapping.put( 1.0000001F, "1.0000001" );
+        mapping.put( 23.000001F, "23.000002" );
+        mapping.put( 1e10F, "10000000000" );
+        mapping.put( 230e7F, "2300000000" );
+        mapping.put( 5e20F, "500000000000000000000" );
+        for ( Map.Entry< Float, String > e : mapping.entrySet() )
+        {
+            String s = e.getValue();
+            float v = e.getKey();
+            assertEquals( v, Float.parseFloat( s ), EXACT );
+            assertEquals( s, toPlainString( v ) );
+            if ( !Float.isNaN( v ) ) assertEquals( "-" + s, toPlainString( -v ) );
+        }
+    }
+
+    @Test( timeout = 5000L )
+    public void toPlainStringFloatRandom()
+    {
+        for ( int i = 0; i < 50; i++ )
+        {
+            float v = RANDOM.nextFloat() * 1e20F - 1.5e15F;
+            String s = toPlainString( v );
+            assertEquals( v, Float.parseFloat( s ), EXACT );
             assertFalse( s.toLowerCase().contains( "e" ) );
         }
     }
@@ -225,7 +294,8 @@ public class MathUtilsConversionTest
             String s = e.getValue();
             int p = e.getKey();
             assertEquals( s, toRoundedString( d, p ) );
-            if ( !s.equals( "0" ) ) assertEquals( "-" + s, toRoundedString( -d, p ) );
+            if ( s.equals( "0" ) ) assertEquals( s, toRoundedString( -d, p ) );
+            else assertEquals( "-" + s, toRoundedString( -d, p ) );
             assertEquals( s, toPlainString( round( d, p ) ) );
         }
     }
@@ -318,67 +388,67 @@ public class MathUtilsConversionTest
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanClassicNegative()
+    public void toRomanNumeralsClassicNegative()
     {
         toRomanNumeralsString( -1, false );
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanClassicBig()
+    public void toRomanNumeralsClassicBig()
     {
         toRomanNumeralsString( 4000, false );
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanShortestNegative()
+    public void toRomanNumeralsShortestNegative()
     {
         toRomanNumeralsString( -1, true );
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanShortestBig()
+    public void toRomanNumeralsShortestBig()
     {
         toRomanNumeralsString( 4000, true );
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanExcelNegative()
+    public void toRomanNumeralsExcelNegative()
     {
         toRomanNumeralsExcelString( -1, 0 );
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanExcelBig()
+    public void toRomanNumeralsExcelBig()
     {
         toRomanNumeralsExcelString( 4000, 0 );
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanDoubleNegative()
+    public void toRomanNumeralsDoubleNegative()
     {
         toRomanNumeralsString( -1e6, false );
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanDoubleBig()
+    public void toRomanNumeralsDoubleBig()
     {
         toRomanNumeralsString( 1e6, false );
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanDoubleShortestNegative()
+    public void toRomanNumeralsDoubleShortestNegative()
     {
         toRomanNumeralsString( -1e6, true );
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanDoubleShortestBig()
+    public void toRomanNumeralsDoubleShortestBig()
     {
         toRomanNumeralsString( 1e6, true );
     }
 
     @Test( timeout = 5000L )
-    public void decimalToRomanCasual()
+    public void toRomanNumeralsCasual()
     {
         LinkedHashMap< Integer, String > mapping = new LinkedHashMap<>();
         mapping.put( 0, "N" );
@@ -442,7 +512,7 @@ public class MathUtilsConversionTest
     }
 
     @Test( timeout = 5000L )
-    public void decimalToRomanShortest()
+    public void toRomanNumeralsShortest()
     {
         LinkedHashMap< Integer, String > mapping = new LinkedHashMap<>();
         mapping.put( 0, "N" );
@@ -496,7 +566,7 @@ public class MathUtilsConversionTest
     }
 
     @Test( timeout = 5000L )
-    public void decimalToRomanDoubleCasual()
+    public void toRomanNumeralsDoubleCasual()
     {
         LinkedHashMap< Double, String > mapping = new LinkedHashMap<>();
         mapping.put( 0.0, "N" );
@@ -521,7 +591,7 @@ public class MathUtilsConversionTest
     }
 
     @Test( timeout = 5000L )
-    public void decimalToRomanDoubleShortest()
+    public void toRomanNumeralsDoubleShortest()
     {
         LinkedHashMap< Double, String > mapping = new LinkedHashMap<>();
         mapping.put( 0.0, "N" );
@@ -546,7 +616,7 @@ public class MathUtilsConversionTest
     }
 
     @Test( timeout = 15000L )
-    public void decimalToRomanDouble()
+    public void toRomanNumeralsDouble()
     {
         for ( double i = -1e5; i < 1e5; i += 0.5 )
         {
@@ -556,55 +626,55 @@ public class MathUtilsConversionTest
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalNull()
+    public void toArabicNumeralsNull()
     {
         toArabicNumeralsInt( null );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalEmpty()
+    public void toArabicNumeralsEmpty()
     {
         toArabicNumeralsInt( "" );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalBlank()
+    public void toArabicNumeralsBlank()
     {
         toArabicNumeralsInt( " " );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalWrong()
+    public void toArabicNumeralsWrong()
     {
         toArabicNumeralsInt( "IIII" );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalMinus()
+    public void toArabicNumeralsMinus()
     {
         toArabicNumeralsInt( "-D" );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalMinusInside()
+    public void toArabicNumeralsMinusInside()
     {
         toArabicNumeralsInt( "D-D" );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalSpaceInside()
+    public void toArabicNumeralsSpaceInside()
     {
         toArabicNumeralsInt( "D D" );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalHalf()
+    public void toArabicNumeralsHalf()
     {
         toArabicNumeralsInt( "S" );
     }
 
     @Test( timeout = 5000L )
-    public void romanToDecimalCasual()
+    public void toArabicNumeralsCasual()
     {
         for ( int i = 0; i < 4000; i++ )
         {
@@ -626,31 +696,31 @@ public class MathUtilsConversionTest
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalRawSpaceInside()
+    public void toArabicNumeralsRawSpaceInside()
     {
         toArabicNumeralsExcelInt( "D D" );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalRawMinusInside()
+    public void toArabicNumeralsRawMinusInside()
     {
         toArabicNumeralsExcelInt( "D-D" );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalRawZero()
+    public void toArabicNumeralsRawZero()
     {
         toArabicNumeralsExcelInt( "N" );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalRawHalf()
+    public void toArabicNumeralsRawHalf()
     {
         toArabicNumeralsExcelInt( "S" );
     }
 
     @Test( timeout = 5000L )
-    public void romanToDecimalRawCasual()
+    public void toArabicNumeralsRawCasual()
     {
         LinkedHashMap< Integer, String > mapping = new LinkedHashMap<>();
         mapping.put( 0, "" );
@@ -686,19 +756,19 @@ public class MathUtilsConversionTest
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalDoubleSpaceInside()
+    public void toArabicNumeralsDoubleSpaceInside()
     {
         toArabicNumeralsDouble( "D D" );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void romanToDecimalDoubleMinusInside()
+    public void toArabicNumeralsDoubleMinusInside()
     {
         toArabicNumeralsDouble( "D-D" );
     }
 
     @Test( timeout = 5000L )
-    public void romanToDecimalDoubleCasual()
+    public void toArabicNumeralsDoubleCasual()
     {
         LinkedHashMap< Double, String > mapping = new LinkedHashMap<>();
         mapping.put( 0.0, "" );
@@ -737,31 +807,31 @@ public class MathUtilsConversionTest
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanExcelModeNegative()
+    public void toRomanNumeralsExcelModeNegative()
     {
         toRomanNumeralsExcelString( -1, 0 );
     }
 
     @Test( expected = NumberFormatException.class, timeout = 5000L )
-    public void decimalToRomanExcelModeBig()
+    public void toRomanNumeralsExcelModeBig()
     {
         toRomanNumeralsExcelString( 4000, 0 );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void decimalToRomanExcelModeLow()
+    public void toRomanNumeralsExcelModeLow()
     {
         toRomanNumeralsExcelString( 1, -1 );
     }
 
     @Test( expected = IllegalArgumentException.class, timeout = 5000L )
-    public void decimalToRomanExcelModeHigh()
+    public void toRomanNumeralsExcelModeHigh()
     {
         toRomanNumeralsExcelString( 1, 5 );
     }
 
     @Test( timeout = 5000L )
-    public void decimalToRomanExcelMode() throws IOException
+    public void toRomanNumeralsExcelMode() throws IOException
     {
         // This file contains output of Microsoft Excel's ROMAN( number, mode ) function.
         File file = TestUtils.getResourceFile( "roman.csv" );
@@ -801,7 +871,7 @@ public class MathUtilsConversionTest
     }
 
     @Test( timeout = 60000L )
-    public void decimalToRomanShortestDoubleRandom()
+    public void toRomanNumeralsShortestDoubleRandom()
     {
         for ( int i = 0; i < 20; i++ )
         {
@@ -837,7 +907,7 @@ public class MathUtilsConversionTest
     }
 
     @Test( timeout = 60000L )
-    public void decimalToRomanShortestIntRandom()
+    public void toRomanNumeralsShortestIntRandom()
     {
         for ( int i = 0; i < 100; i++ )
         {
@@ -851,7 +921,7 @@ public class MathUtilsConversionTest
     }
 
     @Test( timeout = 5000L )
-    public void decimalToRomanShortestInt() throws IOException
+    public void toRomanNumeralsShortestInt() throws IOException
     {
         // This file was generated by function toRomanNumeralsShortestString (brute-force).
         File file = TestUtils.getResourceFile( "shortestInt.csv" );
@@ -869,7 +939,7 @@ public class MathUtilsConversionTest
     }
 
     @Test( timeout = 5000L )
-    public void decimalToRomanShortestDouble() throws IOException
+    public void toRomanNumeralsShortestDouble() throws IOException
     {
         // This file was generated by function toRomanNumeralsShortestString (brute-force).
         File file = TestUtils.getResourceFile( "shortestDouble.csv" );

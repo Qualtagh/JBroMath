@@ -553,15 +553,36 @@ public class MathUtils
     }
 
     /**
+     * Returns a string representation of a given number without an exponent field.<br>
+     * When the value is {@link java.lang.Float#NaN} or infinite,
+     * this method is equivalent to {@link java.lang.Float#toString()}.
+     * It produces "NaN", "Infinity" and "-Infinity" for {@link java.lang.Float#NaN},
+     * {@link java.lang.Float#POSITIVE_INFINITY} and {@link java.lang.Float#NEGATIVE_INFINITY} respectively.
+     * When the value is integer, the fractional part is omitted. For instance, 1.0
+     * would result in "1", not "1.0". Positive zero is converted to "0", negative zero - to "-0".
+     * Fractional part is represented without an exponent field: 0.00000001 won't become "1e-8",
+     * it will be "0.00000001".
+     * @param value the float to be converted
+     * @return string representation without an exponent field
+     */
+    public static String toPlainString( float value )
+    {
+        if ( value == 0.0F ) return Float.floatToRawIntBits( value ) == 0 ? "0" : "-0";
+        if ( Float.isNaN( value ) || Float.isInfinite( value ) ) return Float.toString( value );
+        return new BigDecimal( Float.toString( value ) ).stripTrailingZeros().toPlainString();
+    }
+
+    /**
      * Returns a string representation of a number rounded to {@code precision} decimals
      * without an exponent field.<ul>
      * <li>When the number is null then null is returned.</li>
      * <li>When the value is double or float NaN then "NaN" is returned.</li>
      * <li>When the value is double or float Infinity then "Infinity" is returned.</li>
      * <li>For negative infinity, "-Infinity" is returned.</li>
-     * <li>Both positive and negative zero produce "0".</li>
+     * <li>Both positive and negative zero produce "0" (e.g., -0.000234 rounded to 2 decimal places would produce "0", not "-0").</li>
      * <li>Negative number output equals to minus sign concatenated with positive number output (-2.4 produces "-2" with precision = 0 like 2.4 produces "2").</li>
-     * <li>Round half up method is used for rounding (the same as in {@link #round}).</li></ul>
+     * <li>Round half up method is used for rounding positive numbers (the same as in {@link #round}).</li>
+     * <li>Precision can be negative (5123.6 with precision -2 would produce "5100").</li></ul>
      * @see #round
      * @param number the value to be converted
      * @param precision quantity of places to the right of the decimal point
@@ -981,7 +1002,7 @@ public class MathUtils
     /**
      * Modular addition.<br>
      * Returns ( a + b )( mod m ).<br>
-     * Differs from ( a + b ) % modulus in that it always returns non-negative value and never overflows.<br>
+     * Differs from ( a + b ) % m in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1005,7 +1026,7 @@ public class MathUtils
     /**
      * Modular addition.<br>
      * Returns ( a + b )( mod m ).<br>
-     * Differs from ( a + b ) % modulus in that it always returns non-negative value and never overflows.<br>
+     * Differs from ( a + b ) % m in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1036,7 +1057,7 @@ public class MathUtils
     /**
      * Modular subtraction.<br>
      * Returns ( a - b )( mod m ).<br>
-     * Differs from ( a - b ) % modulus in that it always returns non-negative value and never overflows.<br>
+     * Differs from ( a - b ) % m in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1060,7 +1081,7 @@ public class MathUtils
     /**
      * Modular subtraction.<br>
      * Returns ( a - b )( mod m ).<br>
-     * Differs from ( a - b ) % modulus in that it always returns non-negative value and never overflows.<br>
+     * Differs from ( a - b ) % m in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1092,7 +1113,7 @@ public class MathUtils
     /**
      * Modular multiplication.<br>
      * Returns ( a * b )( mod m ).<br>
-     * Differs from ( a * b ) % modulus in that it always returns non-negative value and never overflows.<br>
+     * Differs from ( a * b ) % m in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1116,7 +1137,7 @@ public class MathUtils
     /**
      * Modular multiplication.<br>
      * Returns ( a * b )( mod m ).<br>
-     * Differs from ( a * b ) % modulus in that it always returns non-negative value and never overflows.<br>
+     * Differs from ( a * b ) % m in that it always returns non-negative value and never overflows.<br>
      * If m = 0, {@link #NOT_FOUND} is returned.
      * @param a first value
      * @param b second value
@@ -1378,6 +1399,7 @@ public class MathUtils
      * <li>If m &gt; 1, m is prime and 0 &lt; a &lt; m then the result is positive.</li></ul>
      * The result is always non-negative if it exists, or {@link #NOT_FOUND} otherwise.<br>
      * http://en.wikipedia.org/wiki/Modular_multiplicative_inverse
+     * @see java.math.BigInteger#modInverse
      * @param a value
      * @param m modulus
      * @return a<sup>-1</sup> (mod m),<br>
@@ -1429,6 +1451,7 @@ public class MathUtils
      * <li>If m &gt; 1, m is prime and 0 &lt; a &lt; m then the result is positive.</li></ul>
      * The result is always non-negative if it exists, or {@link #NOT_FOUND} otherwise.<br>
      * http://en.wikipedia.org/wiki/Modular_multiplicative_inverse
+     * @see java.math.BigInteger#modInverse
      * @param a value
      * @param m modulus
      * @return a<sup>-1</sup> (mod m),<br>
