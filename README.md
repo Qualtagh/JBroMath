@@ -64,18 +64,22 @@ Contents:
     1. [mod](#modBig)
     1. [mods](#modsBig)
 1. [PrimeUtils](#primeutils)
-    1. [isPrime](#isPrime)
-    1. [isGaussianPrime](#isGaussianPrime)
-    1. [isMersenneNumber](#isMersenneNumber)
-    1. [isMersennePrime](#isMersennePrime)
-    1. [isFermatNumber](#isFermatNumber)
-    1. [isFermatPrime](#isFermatPrime)
-    1. [passesTrialDivision](#passesTrialDivision)
-    1. [passesLucasLehmer](#passesLucasLehmer)
-    1. [passesLucasPseudoprime](#passesLucasPseudoprime)
-    1. [passesMillerRabin](#passesMillerRabin)
-    1. [passesMiller](#passesMiller)
-    1. [passesBailliePSW](#passesBailliePSW)
+  1. [isPrime](#isPrime)
+  1. [isGaussianPrime](#isGaussianPrime)
+  1. [isMersenneNumber](#isMersenneNumber)
+  1. [isMersennePrime](#isMersennePrime)
+  1. [isFermatNumber](#isFermatNumber)
+  1. [isFermatPrime](#isFermatPrime)
+  1. [passesTrialDivision](#passesTrialDivision)
+  1. [passesLucasLehmer](#passesLucasLehmer)
+  1. [passesLucasPseudoprime](#passesLucasPseudoprime)
+  1. [passesMillerRabin](#passesMillerRabin)
+  1. [passesMiller](#passesMiller)
+  1. [passesBailliePSW](#passesBailliePSW)
+1. [PrimesIterable](#primesiterable)
+  1. [getInt/Long/BigIntegerTotally](#getTotally)
+  1. [getInt/Long/BigIntegerMax](#getMax)
+  1. [getNext](#getNext)
 
 ## MathUtils
 
@@ -538,19 +542,24 @@ This class contains functions with BigInteger and BigDecimal arguments.
 
 ### Constants
 
-This class contains additional often used BigInteger (with `BI_` prefix) and BigDecimal (with `BD_` prefix) constants.
+This class contains additional often used BigInteger (with `BI_` prefix) and BigDecimal (with `BD_` prefix) constants. BigInteger:
 
-- 0.5: BD_HALF
-- 2: BI_TWO, BD_TWO
-- 3: BI_THREE, BD_THREE
-- 4: BI_FOUR, BD_FOUR
-- 5: BI_FIVE, BD_FIVE
-- 9: BI_NINE
+- 2: BI_TWO
+- 3: BI_THREE
+- 4: BI_FOUR
+- 5: BI_FIVE
 - Integer.MIN_VALUE: BI_MIN_INT = -2<sup>31</sup>
 - Integer.MAX_VALUE: BI_MAX_INT = 2<sup>31</sup> - 1
 - Long.MIN_VALUE: BI_MIN_LONG = -2<sup>63</sup>
 - Long.MAX_VALUE: BI_MAX_LONG = 2<sup>63</sup> - 1
-- BI_MAX_LONG_PLUS_TWO = 2<sup>63</sup> + 1
+
+BigDecimal:
+
+- 0.5: BD_HALF
+- 2: BD_TWO
+- 3: BD_THREE
+- 4: BD_FOUR
+- 5: BD_FIVE
 
 ___
 ### Perfect powers (BigUtils)
@@ -722,3 +731,62 @@ Probabilistic [Baillie-Pomerance-Selfridge-Wagstaff](http://en.wikipedia.org/wik
 If a number fails this test then it's definitely composite. Otherwise it's probably prime.
 
 There are no composite numbers found that pass this test yet. All numbers in `long` range are verified.
+___
+## PrimesIterable
+
+Prime numbers sequence generator.
+
+- Test coverage: 100%
+- Javadoc coverage: 100%
+
+<a name="getTotally"></a>
+```java
+PrimesIterable< Integer > getIntegerTotally( int quantity )
+PrimesIterable< Long > getLongTotally( long quantity )
+PrimesIterable< BigInteger > getBigIntegerTotally( BigInteger quantity ) throws IllegalArgumentException
+```
+Generate a sequence of BigInteger prime numbers.
+
+A sequence is generated lazily (next number is calculated only if required).
+
+The resulting sequence would contain exactly `quantity` numbers.
+
+The result can be enumerated in a for-loop construction, e.g.:
+```java
+for ( BigInteger bi : getBigIntegerTotally( BigInteger.valueOf( 5 ) ) ) System.out.println( bi );
+```
+The output of this example would contain 5 numbers: 2, 3, 5, 7, 11.
+
+An exception is thrown if `quantity` is null.
+___
+<a name="getMax"></a>
+```java
+PrimesIterable< Integer > getIntegerMax( int max )
+PrimesIterable< Long > getLongMax( long max )
+PrimesIterable< BigInteger > getBigIntegerMax( BigInteger max ) throws IllegalArgumentException
+```
+Generate a sequence of long prime numbers up to `max` value inclusively.
+
+A sequence is generated lazily (next number is calculated only if required).
+
+All the numbers in a resulting sequence would lie in range `[ 2 .. max ]` (both sides included).
+
+The result can be enumerated in a for-loop construction, e.g.:
+```java
+for ( long l : getLongMax( 5L ) ) System.out.println( l );
+```
+
+The output of this example would contain 3 numbers: 2, 3, 5.
+___
+<a name="getNext"></a>
+```java
+int getNext( int n )
+long getNext( long n )
+BigInteger getNext( BigInteger n )
+```
+Seeking of the next prime number that is greater than or equal to `n`.
+
+- For negative n, `-getNext( -n )` is returned.
+- If n is null then `null` is returned.
+
+Examples: `getNext( 7 ) = 7`, `getNext( 9 ) = 11`.

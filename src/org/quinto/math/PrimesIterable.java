@@ -23,7 +23,7 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
     private static final int CACHE[] = new int[ 512 ];
     private static final BigInteger BI_LAST_LONG_PRIME = BigInteger.valueOf( LAST_LONG_PRIME );
     private static final BigInteger CACHE_LENGTH = BigInteger.valueOf( CACHE.length );
-    private static boolean initialized;
+    private static final boolean initialized;
     
     private T current;
     private T next;
@@ -220,7 +220,7 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
                 case BIG_INTEGER:
                     current = next;
                     currentPos = ( T )( ( BigInteger )currentPos ).add( BigInteger.ONE );
-                    if ( initialized && ( ( BigInteger )currentPos ).compareTo( CACHE_LENGTH ) < 0 ) next = ( T )BigInteger.valueOf( CACHE[ currentPos.intValue() ] );
+                    if ( ( ( BigInteger )currentPos ).compareTo( CACHE_LENGTH ) < 0 ) next = ( T )BigInteger.valueOf( CACHE[ currentPos.intValue() ] );
                     else next = ( T )getNext( ( ( BigInteger )next ).add( BigInteger.ONE ) );
                     return current;
                 case INTEGER:
@@ -232,7 +232,7 @@ public class PrimesIterable< T extends Number > implements Iterable< T >
                 case LONG:
                     current = next;
                     currentPos = ( T )Long.valueOf( ( Long )currentPos + 1L );
-                    if ( initialized && ( Long )currentPos < CACHE.length ) next = ( T )Long.valueOf( CACHE[ currentPos.intValue() ] );
+                    if ( ( Long )currentPos < CACHE.length ) next = ( T )Long.valueOf( CACHE[ currentPos.intValue() ] );
                     else next = ( T )Long.valueOf( getNext( ( Long )next + 1L ) );
                     return current;
                 default:
