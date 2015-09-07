@@ -32,12 +32,36 @@ Contents:
     1. [modDivide](#modDivide)
     1. [modInverse](#modInverse)
     1. [modPow](#modPow)
+  1. [Common divisors and multiples](#common-divisors-and-multiples)
+    1. [egcd](#egcd)
+    1. [gcd](#gcd)
+    1. [lcm](#lcm)
+    1. [lcmExact](#lcmExact)
+  1. [Roots](#roots)
+    1. [isqrt](#isqrt)
+    1. [uisqrt](#uisqrt)
+    1. [icbrt](#icbrt)
+    1. [iroot](#iroot)
+  1. [Perfect powers](#perfect-powers)
+    1. [getBaseOfPerfectSquare](#getBaseOfPerfectSquare)
+    1. [isPerfectSquare](#isPerfectSquare)
+    1. [getBaseOfPerfectCube](#getBaseOfPerfectCube)
+    1. [isPerfectCube](#isPerfectCube)
+    1. [getBaseOfPerfectPower](#getBaseOfPerfectPower)
+    1. [isPerfectPower](#isPerfectPower)
+  1. [Unsigned arithmetic](#unsigned-arithmetic)
+    1. [uisqrt](#uisqrt)
+    1. [remainderUnsigned](#remainderUnsigned)
+    1. [divideUnsigned](#divideUnsigned)
 1. [PrimeUtils](#primeutils)
 
 ## MathUtils
 
+This class contains functions with primitive-type (byte, short, int, long, float, double) arguments.
+
 - Test coverage: 100%
 - Javadoc coverage: 100%
+- `Integer/Long.MIN_VALUE/MAX_VALUE` are handled properly.
 
 ### Conversion functions
 
@@ -45,35 +69,45 @@ Contents:
 **toArabicNumerals** - converts string representation of Roman numerals to decimal value.
 There are three variants of this function:
 ```java
-int toArabicNumeralsInt( String )
+int toArabicNumeralsInt( String ) throws IllegalArgumentException
 ```
 A classic one, supports `N` ([nulla](https://en.wikipedia.org/wiki/Roman_numerals#Zero)) for zero. Converts values to int in range from 0 to 3999 (inclusively). Performs input validation. E.g., inputs like `IIII`, `IIX` or `MMMMMXX` are considered incorrect.
+
+Throws `IllegalArgumentException` if the input is null, empty or not a valid Roman number.
 ```java
-double toArabicNumeralsDouble( String )
+double toArabicNumeralsDouble( String ) throws IllegalArgumentException
 ```
-Supports `N` for zero, `S` ([semis](https://en.wikipedia.org/wiki/Roman_numerals#Fractions)) for a half and minus sign for negative values. Converts values to double. Does not check the order of letters nor the length of the input. So any big value is permitted (e.g., `MMMMMMXI`). Incorrect letters are verified though
+Supports `N` for zero, `S` ([semis](https://en.wikipedia.org/wiki/Roman_numerals#Fractions)) for a half and minus sign for negative values. Converts values to double. Does not check the order of letters nor the length of the input. So any big value is permitted (e.g., `MMMMMMXI`). Incorrect letters are verified though.
+
+Throws `IllegalArgumentException` if the input contains incorrect characters. If the input is null or empty then 0.0 is returned.
 ```java
 int toArabicNumeralsExcelInt( String )
 ```
 A variant identical to Microsoft Excel's `ARABIC( text )` function. Supports minus sign. Accepts strings up to 255 characters (inclusively).
+
+Throws `IllegalArgumentException` if the input contains incorrect characters. If the input is null or empty then 0 is returned.
 ___
 <a name="toromannumerals"></a>
 **toRomanNumerals** - converts a decimal number to its string representation as Roman numerals.
 There are also three variants of this function:
 ```java
-String toRomanNumeralsString( int number, boolean shortest )
+String toRomanNumeralsString( int number, boolean shortest ) throws NumberFormatException
 ```
 A classic one. Permits zero (the result would be `N` - nulla). The value of `number` should lie in range [ 0 .. 3999 ]. If the argument `shortest` is set to true then the shortest possible output is generated (but it won't be a classic one). Example:
 
 `toRomanNumeralsString( 49, false )` = `XLIX` - correct classic way;
 
 `toRomanNumeralsString( 49, true )` = `IL` - it means `L - I = 50 - 1 = 49` according to Roman-to-Arabic conversion rules. And this is the shortest possible way to write `49` in Roman numerals. A reversed conversion can be done by `toArabicNumeralsExcelInt` function. Microsoft Excel would accept `IL` correctly too.
+
+Throws `NumberFormatException` if number < 0 or number &ge; 4000.
 ```java
-String toRomanNumeralsString( double number, boolean shortest )
+String toRomanNumeralsString( double number, boolean shortest ) throws NumberFormatException
 ```
 The same as a previous one but accepts half values also (which turn into `S` - semis).
+
+Throws `NumberFormatException` if number &le; -1000000 or number &ge; 1000000.
 ```java
-String toRomanNumeralsExcelString( int number, int mode )
+String toRomanNumeralsExcelString( int number, int mode ) throws NumberFormatException, IllegalArgumentException
 ```
 A variant identical to Microsoft Excel's `ROMAN( number, mode )` function. The mode values are:
 
@@ -84,10 +118,14 @@ A variant identical to Microsoft Excel's `ROMAN( number, mode )` function. The m
 - 4 - Minimal (according to Excel's terms): `IM, ID`.
 
 Note that the mode **4** doesn't produce absolutely minimal representation of all the numbers. Use `toRomanNumeralsString` with `shortest` set to true if the absolutely minimal form is required. Example: `ROMAN( 78; 4 ) = LXXVIII` but minimal is `IIXXC`. And `ARABIC` function correctly accepts both of these input strings.
+
+Throws `NumberFormatException` if number < 0 or number &ge; 4000.
+
+Throws `IllegalArgumentException` if mode < 0 or mode > 4.
 ___
 <a name="tobigdecimal"></a>
 ```java
-BigDecimal toBigDecimal( Number )
+BigDecimal toBigDecimal( Number ) throws NumberFormatException
 ```
 Converts a number to BigDecimal.
 
@@ -132,7 +170,7 @@ Rounds a number to `precision` decimal places and returns a plain string represe
 ___
 ### Rounding
 
-**[toRoundedString](#toroundedstring)** - Rounds a number to specified quantity of decimal places and returns a plain string representation of the result.
+**[toRoundedString](#toroundedstring)** - rounds a number to specified quantity of decimal places and returns a plain string representation of the result.
 ___
 <a name="round"></a>
 ```java
@@ -189,12 +227,12 @@ ___
 ```java
 double pow( double x, int y )
 ```
-Overload of `Math.pow( double x, double y )` method for integer exponent.
+Overload of `Math.pow( double x, double y )` method for integer exponent. Returns NaN and infinity in the same situations as `Math.pow` does.
 ```java
 long pow( long x, int y ) throws ArithmeticException
 int pow( int x, int y ) throws ArithmeticException
 ```
-These two methods throw exception if `x = 0` and `y < 0` (resulting in infinity).
+Purely integer exponentiation. These two methods throw exception if `x = 0` and `y < 0` (resulting in infinity). May overflow. Use `powExact` if overflow check is needed.
 ___
 <a name="powExact"></a>
 ```java
@@ -203,7 +241,7 @@ int powExact( int x, int y ) throws ArithmeticException
 ```
 Returns value of `x` raised in power `y` (x<sup>y</sup>), throwing an exception if the result overflows long (or int respectively). Analogous to `Math.multiplyExact` and other `Math.<...>Exact` methods.
 
-Also throws ArithmeticException if `x = 0` and `y < 0` (the result becomes infinite).
+Also, throws ArithmeticException if `x = 0` and `y < 0` (the result becomes infinite).
 ___
 ### Modular arithmetics
 
@@ -298,8 +336,173 @@ ___
 int modPow( long base, long exponent, int m )
 long modPow( long base, long exponent, long m )
 ```
-Raise `base` to `exponent` power mod `m`. Returns `base<sup>exponent</sup> (mod m)`.
+Raise `base` to `exponent` power mod `m`. Returns base<sup>exponent</sup> (mod m).
 
 If `exponent < 0` and `base` is not relatively prime to `m` then `MathUtils.NOT_FOUND` is returned.
 
 If `m = 0` then `MathUtils.NOT_FOUND` is returned.
+___
+### Common divisors and multiples
+
+<a name="egcd"></a>
+```java
+int[] egcd( int a, int b )
+long[] egcd( long a, long b )
+```
+[Extended](http://en.wikipedia.org/wiki/Extended_Euclidean_algorithm) Euclidean greatest common divisor (GCD) algorithm function.
+
+A tuple `( gcd, x, y )` is returned, where `gcd` is greatest common divisor of `a` and `b`.
+
+`x` and `y` are integers such that `x * a + y * b = gcd`.
+___
+<a name="gcd"></a>
+```java
+int gcd( int a, int b )
+long gcd( long a, long b )
+```
+Greatest common divisor ([GCD](http://en.wikipedia.org/wiki/Greatest_common_divisor)).
+___
+<a name="lcm"></a>
+```java
+int lcm( int a, int b )
+long lcm( long a, long b )
+```
+Least common multiple ([LCM](http://en.wikipedia.org/wiki/Least_common_multiple)). May overflow. Use `lcmExact` if overflow check is needed.
+___
+<a name="lcmExact"></a>
+```java
+int lcmExact( int a, int b ) throws ArithmeticException
+long lcmExact( long a, long b ) throws ArithmeticException
+```
+Least common multiple with overflow check. Analogous to `Math.multiplyExact` and other `Math.<...>Exact` methods.
+
+Throws `ArithmeticException` if the result overflows int (or long respectively).
+___
+### Roots
+
+<a name="isqrt"></a>
+```java
+long isqrt( long n ) throws ArithmeticException
+int isqrt( int n ) throws ArithmeticException
+```
+Returns [integer square root](http://en.wikipedia.org/wiki/Integer_square_root) of n.
+
+The greatest integer less than or equal to the square root of n. In other words, `trunc( sqrt( n ) )`. Example:
+
+    isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 > 27
+
+Throws exception if `n < 0`.
+___
+<a name="uisqrt"></a>
+```java
+int uisqrt( long n )
+int uisqrt( int n )
+```
+Unsigned integer square root. The argument and the returned value are treated as unsigned.
+___
+<a name="icbrt"></a>
+```java
+long icbrt( long n )
+int icbrt( int n )
+```
+Integer cubic root. Returns `trunc( cbrt( n ) )`.
+___
+<a name="iroot"></a>
+```java
+long iroot( long n, int power ) throws ArithmeticException
+int iroot( int n, int power ) throws ArithmeticException
+```
+Returns integer root of `n` of given degree `power`. In other words, returns trunc( <sup>power</sup>&radic;n ).
+
+Throws exception if one of the following conditions holds:
+
+- n < 0 and power is even (the result is a complex number)
+- n = 0 and power < 0 (resulting in infinity)
+- n = 1 and power = 0 (the result is 1<sup>&infin;</sup>, which is undefined)
+- n > 1 and power = 0 (the result is n<sup>&infin;</sup> = &infin;)
+
+___
+### Perfect powers
+
+<a name="getBaseOfPerfectSquare"></a>
+```java
+long getBaseOfPerfectSquare( long n )
+```
+Finds a root of a [perfect square](http://en.wikipedia.org/wiki/Square_number).
+
+Given integer number `n`, find integer number `s` such that s<sup>2</sup> = n.
+
+Returns `MathUtils.NOT_FOUND` if such number `s` doesn't exists.
+___
+<a name="isPerfectSquare"></a>
+```java
+boolean isPerfectSquare( long n )
+```
+Determine if a given number `n` is a perfect square.
+___
+<a name="getBaseOfPerfectCube"></a>
+```java
+long getBaseOfPerfectCube( long n )
+```
+Given integer number `n`, find integer number `s` such that s<sup>3</sup> = n.
+
+Returns `MathUtils.NOT_FOUND` if such number `s` doesn't exists.
+___
+<a name="isPerfectCube"></a>
+```java
+boolean isPerfectCube( long n )
+```
+Determine if a given number `n` is a perfect cube.
+___
+<a name="getBaseOfPerfectPower"></a>
+**getBaseOfPerfectPower** - finds a root of a [perfect power](http://en.wikipedia.org/wiki/Perfect_power).
+
+```java
+long getBaseOfPerfectPower( long n, int power )
+```
+Given integer numbers `n` and `power`, find integer number `s` such that s<sup>power</sup> = n.
+
+Returns `MathUtils.NOT_FOUND` if such number `s` doesn't exists.
+
+```java
+long[] getBaseOfPerfectPower( long number )
+```
+Given integer number, find if there exist integer numbers `s` and `q` such that number = s<sup>q</sup>, `q > 1`.
+
+The value returned is a tuple `( s, q )`. The base `s` is minimal, the power `q` is maximal of all suitable tuples `( s, q )`.
+
+If such numbers `s` and `q` don't exist, `null` is returned.
+___
+<a name="getBaseOfPerfectPower"></a>
+**isPerfectPower** - determine if a given number `n` is a perfect power.
+
+```java
+boolean isPerfectPower( long n, int power )
+```
+This method checks `n` against only one given power.
+```java
+boolean isPerfectPower( long n )
+```
+This method checks if there exist such numbers `s` and `q` that n = s<sup>q</sup>, `q > 1`. In other words, if `n` is a perfect power of any power `q > 1`.
+___
+### Unsigned arithmetic
+
+**[uisqrt](#uisqrt)** - unsigned integer square root.
+___
+<a name="remainderUnsigned"></a>
+```java
+int remainderUnsigned( int dividend, int divisor )
+long remainderUnsigned( long dividend, long divisor )
+```
+Returns the unsigned remainder from dividing the first argument by the second where each argument and the result is interpreted as an unsigned value.
+
+This method is an optimized version of `Integer/Long.remainderUnsigned`.
+___
+<a name="divideUnsigned"></a>
+```java
+int divideUnsigned( int dividend, int divisor )
+long divideUnsigned( long dividend, long divisor )
+```
+Returns the unsigned quotient from dividing the first argument by the second where each argument and the result is interpreted as an unsigned value.
+
+This method is an optimized version of `Integer/Long.divideUnsigned`.

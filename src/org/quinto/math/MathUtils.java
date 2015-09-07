@@ -242,8 +242,7 @@ public class MathUtils
      * IVIXIM -&gt; 982 (M - I - V - I - X - I)
      * @param roman Roman numerals string to be converted
      * @return integer decimal value of input string
-     * @throws IllegalArgumentException if input string is null, empty
-     * or not a valid Roman number
+     * @throws IllegalArgumentException if input contains illegal characters
      */
     public static int toArabicNumeralsExcelInt( String roman ) throws IllegalArgumentException
     {
@@ -263,7 +262,8 @@ public class MathUtils
      * @param permitMinus allow character "-" as negation of the resulting value<br>
      * This symbol is allowed only in the beginning of an input string<br>
      * @return integer decimal value of input string, <b>should be divided by 2</b><br>
-     * @throws IllegalArgumentException if input string is null, empty or not a valid Roman number
+     * @throws IllegalArgumentException if validateInput is true and input string is null, empty or not a valid Roman number;<br>
+     * if validateInput is false and input string contains incorrect characters
      */
     private static int toArabicNumeralsInternal( String roman, boolean validateInput, boolean permitZero, boolean permitHalf, boolean permitMinus ) throws IllegalArgumentException
     {
