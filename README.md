@@ -130,7 +130,7 @@ Rounds a number to `precision` decimal places and returns a plain string represe
 - Negative precision is supported (5123.6 with precision -2 outputs "5100").
 
 ___
-### Conversion functions
+### Rounding
 
 **[toRoundedString](#toroundedstring)** - Rounds a number to specified quantity of decimal places and returns a plain string representation of the result.
 ___
@@ -168,7 +168,7 @@ ceil( -12.25, 1 ) = -12.2
 ___
 <a name="floor"></a>
 ```java
-floor( double value, int decimals )
+double floor( double value, int decimals )
 ```
 Rounding down ([flooring](http://en.wikipedia.org/wiki/Floor_and_ceiling_functions)) to `decimals` places to the right of the decimal point.
 ```java
@@ -194,7 +194,7 @@ Overload of `Math.pow( double x, double y )` method for integer exponent.
 long pow( long x, int y ) throws ArithmeticException
 int pow( int x, int y ) throws ArithmeticException
 ```
-These two methods return `x` raised to power `y`. They throw exception if `x = 0` and `y < 0` (resulting in infinity).
+These two methods throw exception if `x = 0` and `y < 0` (resulting in infinity).
 ___
 <a name="powExact"></a>
 ```java
@@ -298,7 +298,7 @@ ___
 int modPow( long base, long exponent, int m )
 long modPow( long base, long exponent, long m )
 ```
-Raise `base` to `exponent` power mod `m`. Returns base<sup>exponent</sup> (mod m).
+Raise `base` to `exponent` power mod `m`. Returns `base<sup>exponent</sup> (mod m)`.
 
 If `exponent < 0` and `base` is not relatively prime to `m` then `MathUtils.NOT_FOUND` is returned.
 
