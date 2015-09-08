@@ -1,6 +1,8 @@
 # JBroMath
 Math utilities for Java.
 
+Java 8 required. No additional dependencies.
+
 Released into public domain.
 
 Contents:

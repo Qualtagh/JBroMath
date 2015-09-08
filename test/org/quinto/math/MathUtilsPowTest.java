@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.quinto.math.MathUtils.pow;
 import static org.quinto.math.MathUtils.pow10;
@@ -55,45 +56,45 @@ public class MathUtilsPowTest
     @Test( timeout = 5000L )
     public void pow10Casual()
     {
-        assertEquals( 1.0, pow10( 0 ), DELTA );
-        assertEquals( 10.0, pow10( 1 ), DELTA );
-        assertEquals( 100.0, pow10( 2 ), DELTA );
-        assertEquals( 1000.0, pow10( 3 ), DELTA );
-        assertEquals( 1e5, pow10( 5 ), DELTA );
-        assertEquals( 1e23, pow10( 23 ), DELTA );
-        assertEquals( 1e105, pow10( 105 ), DELTA );
-        assertEquals( 0.1, pow10( -1 ), DELTA );
-        assertEquals( 0.01, pow10( -2 ), DELTA );
-        assertEquals( 0.001, pow10( -3 ), DELTA );
-        assertEquals( 1e-5, pow10( -5 ), DELTA );
-        assertEquals( 1e-23, pow10( -23 ), DELTA );
-        assertEquals( 1e-105, pow10( -105 ), DELTA );
+        assertEquals( 1.0, pow10( 0 ), EXACT );
+        assertEquals( 10.0, pow10( 1 ), EXACT );
+        assertEquals( 100.0, pow10( 2 ), EXACT );
+        assertEquals( 1000.0, pow10( 3 ), EXACT );
+        assertEquals( 1e5, pow10( 5 ), EXACT );
+        assertEquals( 1e23, pow10( 23 ), EXACT );
+        assertEquals( 1e105, pow10( 105 ), EXACT );
+        assertEquals( 0.1, pow10( -1 ), EXACT );
+        assertEquals( 0.01, pow10( -2 ), EXACT );
+        assertEquals( 0.001, pow10( -3 ), EXACT );
+        assertEquals( 1e-5, pow10( -5 ), EXACT );
+        assertEquals( 1e-23, pow10( -23 ), EXACT );
+        assertEquals( 1e-105, pow10( -105 ), EXACT );
     }
 
     @Test( timeout = 5000L )
     public void pow10Ten()
     {
-        for ( int i = -325; i < 311; i++ ) assertEquals( Double.parseDouble( "1e" + i ), pow10( i ), DELTA );
-        for ( int i = -325; i < 311; i++ ) assertEquals( BigDecimal.ONE.scaleByPowerOfTen( i ).doubleValue(), pow10( i ), DELTA );
+        for ( int i = -325; i < 311; i++ ) assertEquals( Double.parseDouble( "1e" + i ), pow10( i ), EXACT );
+        for ( int i = -325; i < 311; i++ ) assertEquals( BigDecimal.ONE.scaleByPowerOfTen( i ).doubleValue(), pow10( i ), EXACT );
     }
 
     @Test( timeout = 5000L )
     public void pow10Special()
     {
-        assertEquals( 0.0, pow10( Integer.MIN_VALUE ), DELTA );
-        assertEquals( 0.0, pow10( -5001 ), DELTA );
-        assertEquals( 0.1, pow10( -1 ), DELTA );
-        assertEquals( 1.0, pow10( 0 ), DELTA );
-        assertEquals( 10.0, pow10( 1 ), DELTA );
-        assertEquals( Double.POSITIVE_INFINITY, pow10( 5000 ), DELTA );
-        assertEquals( Double.POSITIVE_INFINITY, pow10( Integer.MAX_VALUE ), DELTA );
+        assertEquals( 0.0, pow10( Integer.MIN_VALUE ), EXACT );
+        assertEquals( 0.0, pow10( -5001 ), EXACT );
+        assertEquals( 0.1, pow10( -1 ), EXACT );
+        assertEquals( 1.0, pow10( 0 ), EXACT );
+        assertEquals( 10.0, pow10( 1 ), EXACT );
+        assertEquals( Double.POSITIVE_INFINITY, pow10( 5000 ), EXACT );
+        assertEquals( Double.POSITIVE_INFINITY, pow10( Integer.MAX_VALUE ), EXACT );
     }
 
     @Test( timeout = 5000L )
     public void powDoubleIntTen()
     {
-        for ( int i = -325; i < 311; i++ ) assertEquals( Double.parseDouble( "1e" + i ), pow( 10.0, i ), DELTA );
-        for ( int i = -325; i < 311; i++ ) assertEquals( BigDecimal.ONE.scaleByPowerOfTen( i ).doubleValue(), pow( 10.0, i ), DELTA );
+        for ( int i = -325; i < 311; i++ ) assertEquals( Double.parseDouble( "1e" + i ), pow( 10.0, i ), EXACT );
+        for ( int i = -325; i < 311; i++ ) assertEquals( BigDecimal.ONE.scaleByPowerOfTen( i ).doubleValue(), pow( 10.0, i ), EXACT );
     }
 
     @Test( timeout = 5000L )
@@ -126,8 +127,10 @@ public class MathUtilsPowTest
         for ( double d : DOUBLES ) if ( Math.abs( d ) < 1.0 ) assertEquals( Double.POSITIVE_INFINITY, pow( d, Integer.MIN_VALUE ), EXACT );
         // If the absolute value of the first argument is greater than 1 and the second argument is negative infinity, or
         // the absolute value of the first argument is less than 1 and the second argument is positive infinity, then the result is positive zero.
-        for ( double d : DOUBLES ) if ( Math.abs( d ) > 1.0 ) assertEquals( 0.0, pow( d, Integer.MIN_VALUE ), DELTA );
-        for ( double d : DOUBLES ) if ( Math.abs( d ) < 1.0 ) assertEquals( 0.0, pow( d, Integer.MAX_VALUE ), DELTA );
+        for ( double d : DOUBLES ) if ( Math.abs( d ) > 1.0 ) assertEquals( 0.0, pow( d, Integer.MIN_VALUE ), EXACT );
+        for ( double d : DOUBLES ) if ( Math.abs( d ) < 1.0 ) assertEquals( 0.0, pow( d, Integer.MAX_VALUE - 1 ), EXACT );
+        // Note: Integer.MAX_VALUE isn't actually an infinity, so its parity affects the sign of resulting zero.
+        for ( double d : DOUBLES ) if ( Math.abs( d ) < 1.0 ) assertTrue( pow( d, Integer.MAX_VALUE ) == 0.0 );
         // If the absolute value of the first argument equals 1 and the second argument is infinite, then the result is NaN. <- Impossible with int.
         // If the first argument is positive zero and the second argument is greater than zero, or
         // the first argument is positive infinity and the second argument is less than zero, then the result is positive zero.
@@ -161,9 +164,9 @@ public class MathUtilsPowTest
                 for ( int i : INTS )
                 {
                     // if the second argument is a finite even integer, the result is equal to the result of raising the absolute value of the first argument to the power of the second argument
-                    if ( ( i & 1 ) == 0 ) assertEquals( pow( -d, i ), pow( d, i ), DELTA );
+                    if ( ( i & 1 ) == 0 ) assertEquals( pow( -d, i ), pow( d, i ), EXACT );
                     // if the second argument is a finite odd integer, the result is equal to the negative of the result of raising the absolute value of the first argument to the power of the second argument
-                    else assertEquals( -pow( -d, i ), pow( d, i ), DELTA );
+                    else assertEquals( -pow( -d, i ), pow( d, i ), EXACT );
                     // if the second argument is finite and not an integer, then the result is NaN. <- Impossible with int.
                 }
             }
@@ -175,9 +178,9 @@ public class MathUtilsPowTest
     @Test( timeout = 5000L )
     public void powDoubleIntCasual()
     {
-        assertEquals( 0.25, pow( 0.5, 2 ), DELTA );
-        assertEquals( 1.0, pow( 1.0, 3 ), DELTA );
-        assertEquals( 81.0, pow( 3.0, 4 ), DELTA );
+        assertEquals( 0.25, pow( 0.5, 2 ), EXACT );
+        assertEquals( 1.0, pow( 1.0, 3 ), EXACT );
+        assertEquals( 81.0, pow( 3.0, 4 ), EXACT );
         for ( int i : INTS ) for ( double d : DOUBLES ) assertEquals( Math.pow( d, i ), pow( d, i ), Math.min( Math.max( Math.pow( Math.abs( d ), i ), 1.0 ) * DELTA, 10e290 ) );
     }
     
