@@ -16,6 +16,8 @@ import static org.quinto.math.MathUtils.egcd;
 import static org.quinto.math.MathUtils.gcd;
 import static org.quinto.math.MathUtils.lcm;
 import static org.quinto.math.MathUtils.lcmExact;
+import static org.quinto.math.MathUtils.isRelativelyPrime;
+import static org.quinto.math.TestUtils.bi;
 
 public class MathUtilsGcdTest
 {
@@ -81,6 +83,9 @@ public class MathUtilsGcdTest
                     if ( a == 0 ) assertEquals( gcd, Math.abs( b ) );
                     if ( b == 0 ) assertEquals( gcd, Math.abs( a ) );
                 }
+                assertEquals( bi( a ).gcd( bi( b ) ).intValue(), gcd );
+                assertEquals( gcd == 1, isRelativelyPrime( a, b ) );
+                assertEquals( gcd == 1, isRelativelyPrime( b, a ) );
                 if ( Math.abs( a ) == Math.abs( b ) ) assertEquals( gcd, Math.abs( a ) );
             }
         }
@@ -127,6 +132,9 @@ public class MathUtilsGcdTest
                     int ib = ( int )b;
                     if ( ia == a && ib == b ) assertEquals( gcd, Math.abs( ( long )gcd( ia, ib ) ) );
                 }
+                assertEquals( bi( a ).gcd( bi( b ) ).longValue(), gcd );
+                assertEquals( gcd == 1L, isRelativelyPrime( a, b ) );
+                assertEquals( gcd == 1L, isRelativelyPrime( b, a ) );
                 if ( Math.abs( a ) == Math.abs( b ) ) assertEquals( gcd, Math.abs( a ) );
             }
         }
@@ -372,5 +380,46 @@ public class MathUtilsGcdTest
                 }
             }
         }
+    }
+
+    @Test( timeout = 5000L )
+    public void isRelativelyPrimeIntCasual()
+    {
+        assertTrue( isRelativelyPrime( 2, 3 ) );
+        assertTrue( isRelativelyPrime( 4, 9 ) );
+        assertFalse( isRelativelyPrime( 4, 6 ) );
+        assertFalse( isRelativelyPrime( 6, 9 ) );
+        assertTrue( isRelativelyPrime( 3, -2 ) );
+        assertTrue( isRelativelyPrime( 9, 4 ) );
+        assertFalse( isRelativelyPrime( -4, 6 ) );
+        assertFalse( isRelativelyPrime( 9, 6 ) );
+    }
+
+    @Test( timeout = 5000L )
+    public void isRelativelyPrimeIntRange()
+    {
+        for ( int a = -100; a <= 100; a++ )
+        {
+            for ( int b = -100; b <= 100; b++ )
+            {
+                int cd = Math.max( Math.abs( a ), Math.abs( b ) );
+                if ( cd > 0 ) for ( ; cd >= 0; cd-- ) if ( a % cd == 0 && b % cd == 0 ) break;
+                assertEquals( cd, gcd( a, b ) );
+                assertEquals( cd == 1, isRelativelyPrime( a, b ) );
+            }
+        }
+    }
+
+    @Test( timeout = 5000L )
+    public void isRelativelyPrimeLongCasual()
+    {
+        assertTrue( isRelativelyPrime( 2L, 3L ) );
+        assertTrue( isRelativelyPrime( 4L, 9L ) );
+        assertFalse( isRelativelyPrime( 4L, 6L ) );
+        assertFalse( isRelativelyPrime( 6L, 9L ) );
+        assertTrue( isRelativelyPrime( 3L, -2L ) );
+        assertTrue( isRelativelyPrime( 9L, 4L ) );
+        assertFalse( isRelativelyPrime( -4L, 6L ) );
+        assertFalse( isRelativelyPrime( 9L, 6L ) );
     }
 }

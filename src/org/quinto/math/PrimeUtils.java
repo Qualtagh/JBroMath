@@ -94,14 +94,14 @@ public class PrimeUtils
 
     /**
      * Method to check if a given number is a Mersenne number (primality of the number is not checked).
-     * Linear time.
+     * Linear time.<br><br>
      * https://en.wikipedia.org/wiki/Mersenne_prime
      * @param n a checking number
-     * @return true iff log<sub>2</sub>( n + 1 ) is a natural number
+     * @return true iff log<sub>2</sub>( n + 1 ) is a non-negative integer
      */
     public static boolean isMersenneNumber( BigInteger n )
     {
-        if ( n.signum() <= 0 ) return false;
+        if ( n.signum() < 0 ) return false;
         byte bytes[] = n.toByteArray();
         byte b = bytes[ 0 ];
         if ( ( b & ( b + 1 ) ) != 0 ) return false;
@@ -111,7 +111,7 @@ public class PrimeUtils
 
     /**
      * Lucas-Lehmer deterministic primality test for Mersenne numbers. Polynomial time.
-     * @param n a Mersenne number M<sub>p</sub> = 2<sup>p</sup> - 1, p is non-negative
+     * @param n <b>a Mersenne number M<sub>p</sub> = 2<sup>p</sup> - 1, p &ge; 0, n &ge; 0</b>
      * @return true iff n is prime
      */
     public static boolean passesLucasLehmer( BigInteger n )
@@ -213,11 +213,11 @@ public class PrimeUtils
     /**
      * Lucas probabilistic polynomial-time primality test.
      * This is a method {@code passesLucasLehmer} from a standard Java class BigInteger.
-     * Used in Baillie-PSW primality test.
-     * https://en.wikipedia.org/wiki/Lucas_pseudoprime
+     * Used in Baillie-PSW primality test.<br><br>
+     * https://en.wikipedia.org/wiki/Lucas_pseudoprime<br><br>
      * Not to be confused with https://en.wikipedia.org/wiki/Lucas_primality_test
      * @see java.math.BigInteger#passesLucasLehmer
-     * @param n an odd integer greater than one, not a strong pseudoprime to base 2, not a perfect square
+     * @param n <b>an odd integer greater than one, not a strong pseudoprime to base 2, not a perfect square</b>
      * @return false if n is composite, true if n is a probable prime (with high probability)
      */
     public static boolean passesLucasPseudoprime( BigInteger n )
@@ -259,7 +259,7 @@ public class PrimeUtils
      * Origin: Colin Plumb's C library.
      * https://en.wikipedia.org/wiki/Jacobi_symbol
      * @see java.math.BigInteger#jacobiSymbol
-     * @param n an odd integer greater than one, not a perfect square
+     * @param n <b>an odd integer greater than one, not a perfect square</b>
      */
     private static int jacobiSymbol( int p, BigInteger n )
     {
@@ -302,8 +302,8 @@ public class PrimeUtils
     /**
      * Strong pseudoprimality test with a given base.
      * <p>https://en.wikipedia.org/wiki/Strong_pseudoprime
-     * @param n an odd integer greater than one
-     * @param base a checking pseudoprimality base
+     * @param n <b>an odd integer greater than one</b>
+     * @param base a checking pseudoprimality base, <b>coprime to n</b>
      * @return true iff n is prime or n is strong pseudoprime to a given base
      */
     public static boolean passesMillerRabin( int n, int base )
@@ -318,8 +318,8 @@ public class PrimeUtils
      * Strong pseudoprimality test with a given base.
      * This method is an adaptation of the method {@code passesMillerRabin} of a standard Java class BigInteger.
      * The difference is that the base is defined as an argument and is not generated randomly.
-     * @param n an odd integer greater than one
-     * @param base a checking pseudoprimality base
+     * @param n <b>an odd integer greater than one</b>
+     * @param base a checking pseudoprimality base, <b>coprime to n</b>
      * @return true iff n is prime or n is strong pseudoprime to a given base
      */
     public static boolean passesMillerRabin( BigInteger n, BigInteger base )

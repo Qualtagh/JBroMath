@@ -37,6 +37,7 @@ Contents:
     1. [gcd](#gcd)
     1. [lcm](#lcm)
     1. [lcmExact](#lcmExact)
+    1. [isRelativelyPrime](#isRelativelyPrime)
   1. [Roots](#roots)
     1. [isqrt](#isqrt)
     1. [uisqrt](#uisqrt)
@@ -58,6 +59,9 @@ Contents:
   1. [Perfect powers](#perfect-powers-bigutils)
     1. [getBaseOfPerfectSquare](#getBaseOfPerfectSquareBig)
     1. [isPerfectSquare](#isPerfectSquareBig)
+  1. [Common divisors and multiples](#common-divisors-and-multiples-bigutils)
+    1. [lcm](#lcmBig)
+    1. [isRelativelyPrime](#isRelativelyPrimeBig)
   1. [Roots](#roots-bigutils)
     1. [isqrt](#isqrtBig)
   1. [Modular arithmetic](#modular-arithmetic-bigutils)
@@ -404,6 +408,13 @@ Least common multiple with overflow check. Analogous to `Math.multiplyExact` and
 
 Throws `ArithmeticException` if the result overflows int (or long respectively).
 ___
+<a name="isRelativelyPrime"></a>
+```java
+boolean isRelativelyPrime( int a, int b )
+boolean isRelativelyPrime( long a, long b )
+```
+Determine if `a` is relatively prime to `b`, i.e. `gcd( a, b ) = 1`.
+___
 ### Roots
 
 <a name="isqrt"></a>
@@ -580,6 +591,20 @@ boolean isPerfectSquare( BigInteger n )
 ```
 Determine if a given number `n` is a perfect square.
 ___
+### Common divisors and multiples (BigUtils)
+
+<a name="lcmBig"></a>
+```java
+BigInteger lcm( BigInteger a, BigInteger b )
+```
+Least common multiple ([LCM](http://en.wikipedia.org/wiki/Least_common_multiple)).
+___
+<a name="isRelativelyPrimeBig"></a>
+```java
+boolean isRelativelyPrime( BigInteger a, BigInteger b )
+```
+Determine if `a` is relatively prime to `b`, i.e. `gcd( a, b ) = 1`.
+___
 ### Roots (BigUtils)
 
 <a name="isqrtBig"></a>
@@ -612,7 +637,7 @@ ___
 
 This class contains functions for primality testing and proving.
 
-- Test coverage: 0% (planned)
+- Test coverage: 100%
 - Javadoc coverage: 100%
 
 <a name="isPrime"></a>
@@ -698,6 +723,8 @@ boolean passesMillerRabin( int n, int base )
 boolean passesMillerRabin( BigInteger n, BigInteger base )
 ```
 [Strong pseudoprimality](https://en.wikipedia.org/wiki/Strong_pseudoprime) test with a given base.
+
+Argument `n` must be an odd integer greater than one. Argument `base` must be relatively prime to `n`.
 
 This method is an adaptation of the standard Java method `BigInteger.passesMillerRabin`.
 

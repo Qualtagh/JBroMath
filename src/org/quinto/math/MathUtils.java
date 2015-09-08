@@ -1758,6 +1758,28 @@ public class MathUtils
     }
     
     /**
+     * Determine if a is relatively prime to b, i.e. gcd( a, b ) = 1.
+     * @param a first number
+     * @param b second number
+     * @return true iff a is relatively prime to b
+     */
+    public static boolean isRelativelyPrime( int a, int b )
+    {
+        return gcd( a, b ) == 1;
+    }
+    
+    /**
+     * Determine if a is relatively prime to b, i.e. gcd( a, b ) = 1.
+     * @param a first number
+     * @param b second number
+     * @return true iff a is relatively prime to b
+     */
+    public static boolean isRelativelyPrime( long a, long b )
+    {
+        return gcd( a, b ) == 1L;
+    }
+    
+    /**
      * Least common multiple.<br>
      * http://en.wikipedia.org/wiki/Least_common_multiple<br>
      * lcm( 6, 9 ) = 18<br>

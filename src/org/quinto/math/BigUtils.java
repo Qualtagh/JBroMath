@@ -213,4 +213,32 @@ public class BigUtils
     {
         return v.mod( m.abs() );
     }
+    
+    /**
+     * Determine if a is relatively prime to b, i.e. gcd( a, b ) = 1.
+     * @param a first number
+     * @param b second number
+     * @return true iff a is relatively prime to b
+     */
+    public static boolean isRelativelyPrime( BigInteger a, BigInteger b )
+    {
+        return a.gcd( b ).equals( BigInteger.ONE );
+    }
+    
+    /**
+     * Least common multiple.<br>
+     * http://en.wikipedia.org/wiki/Least_common_multiple<br>
+     * lcm( 6, 9 ) = 18<br>
+     * lcm( 4, 9 ) = 36<br>
+     * lcm( 0, 9 ) = 0<br>
+     * lcm( 0, 0 ) = 0
+     * @param a first number
+     * @param b second number
+     * @return least common multiple of a and b
+     */
+    public static BigInteger lcm( BigInteger a, BigInteger b )
+    {
+        if ( a.signum() == 0 || b.signum() == 0 ) return BigInteger.ZERO;
+        return a.divide( a.gcd( b ) ).multiply( b ).abs();
+    }
 }
