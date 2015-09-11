@@ -1,7 +1,10 @@
 # JBroMath
 Math utilities for Java.
 
-Java 8 required. No additional dependencies.
+Dependencies:
+
+- Java 8.
+- JUnit (for tests only).
 
 Released into public domain.
 
@@ -53,6 +56,7 @@ Contents:
     1. [getBaseOfPerfectPower](#getBaseOfPerfectPower)
     1. [isPerfectPower](#isPerfectPower)
   1. [Unsigned arithmetic](#unsigned-arithmetic)
+    1. [toUnsignedBigInteger](#tounsignedbiginteger)
     1. [uisqrt](#uisqrt)
     1. [remainderUnsigned](#remainderUnsigned)
     1. [divideUnsigned](#divideUnsigned)
@@ -526,6 +530,8 @@ This method checks if there exist such numbers `s` and `q` that n = s<sup>q</sup
 ___
 ### Unsigned arithmetic
 
+**[toUnsignedBigInteger](#tounsignedbiginteger)** - converts an unsigned number to BigInteger.
+___
 **[uisqrt](#uisqrt)** - unsigned integer square root.
 ___
 <a name="remainderUnsigned"></a>
