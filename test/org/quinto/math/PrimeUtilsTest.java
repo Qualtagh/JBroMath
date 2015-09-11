@@ -79,7 +79,7 @@ public class PrimeUtilsTest
             if ( MathUtils.isRelativelyPrime( i, 9 ) ) assertTrue( passesMillerRabin( bi, BigUtils.BI_NINE ) );
             if ( MathUtils.isRelativelyPrime( i, Integer.MAX_VALUE ) ) assertTrue( passesMillerRabin( bi, BigUtils.BI_MAX_INT ) );
             if ( MathUtils.isRelativelyPrime( i, Long.MAX_VALUE ) ) assertTrue( passesMillerRabin( bi, BigUtils.BI_MAX_LONG ) );
-            if ( BigUtils.isRelativelyPrime( bi, BigUtils.BI_MAX_LONG_PLUS_TWO ) ) assertTrue( passesMillerRabin( bi, BigUtils.BI_MAX_LONG_PLUS_TWO ) );
+            if ( BigUtils.isRelativelyPrime( bi, BigUtils.BI_2_POW_64 ) ) assertTrue( passesMillerRabin( bi, BigUtils.BI_2_POW_64 ) );
             assertTrue( bi.isProbablePrime( 1 ) );
             assertTrue( bi.isProbablePrime( 10 ) );
             assertTrue( bi.isProbablePrime( 100 ) );

@@ -532,7 +532,7 @@ public class MathUtils
     public static BigInteger toUnsignedBigInteger( long number )
     {
         if ( number >= 0L ) return BigInteger.valueOf( number );
-        return BigUtils.BI_MAX_LONG_PLUS_TWO.add( BigInteger.valueOf( number + Long.MAX_VALUE ) );
+        return BigUtils.BI_2_POW_64.add( BigInteger.valueOf( number ) );
     }
 
     /**
@@ -751,33 +751,19 @@ public class MathUtils
     public static double pow( double x, int y )
     {
         if ( x == 10.0 ) return pow10( y );
+        if ( x == -10.0 ) return ( y & 1 ) == 0 ? pow10( y ) : -pow10( y );
         double z = 1.0;
-        if ( y >= 0 )
+        if ( y < 0 )
         {
-            while ( true )
-            {
-                if ( ( y & 1 ) != 0 ) z *= x;
-                y >>= 1;
-                if ( y == 0 ) break;
-                x *= x;
-            }
-        }
-        else
-        {
-            // One additional loop iteration is required for Integer.MIN_VALUE because it can't be negated.
-            if ( y == Integer.MIN_VALUE )
-            {
-                y >>= 1;
-                x *= x;
-            }
             y = -y;
-            while ( true )
-            {
-                if ( ( y & 1 ) != 0 ) z /= x;
-                y >>= 1;
-                if ( y == 0 ) break;
-                x *= x;
-            }
+            x = 1.0 / x;
+        }
+        while ( true )
+        {
+            if ( ( y & 1 ) != 0 ) z *= x;
+            y >>>= 1;
+            if ( y == 0 ) break;
+            x *= x;
         }
         return z;
     }
@@ -798,7 +784,7 @@ public class MathUtils
             while ( true )
             {
                 if ( ( y & 1 ) != 0 ) z = Math.multiplyExact( z, x );
-                y >>= 1;
+                y >>>= 1;
                 if ( y == 0 ) break;
                 x = Math.multiplyExact( x, x );
             }
@@ -828,7 +814,7 @@ public class MathUtils
             while ( true )
             {
                 if ( ( y & 1 ) != 0 ) z *= x;
-                y >>= 1;
+                y >>>= 1;
                 if ( y == 0 ) break;
                 x *= x;
             }
@@ -859,7 +845,7 @@ public class MathUtils
             while ( true )
             {
                 if ( ( y & 1 ) != 0 ) z = Math.multiplyExact( z, x );
-                y >>= 1;
+                y >>>= 1;
                 if ( y == 0 ) break;
                 x = Math.multiplyExact( x, x );
             }
@@ -889,7 +875,7 @@ public class MathUtils
             while ( true )
             {
                 if ( ( y & 1 ) != 0 ) z *= x;
-                y >>= 1;
+                y >>>= 1;
                 if ( y == 0 ) break;
                 x *= x;
             }

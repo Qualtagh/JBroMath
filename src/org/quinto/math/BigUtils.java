@@ -53,10 +53,16 @@ public class BigUtils
     public static final BigInteger BI_MIN_LONG = BigInteger.valueOf( Long.MIN_VALUE );
     
     /**
-     * Value of Long.MAX_VALUE + 2.
+     * Value of Long.MAX_VALUE + 1.
+     * Used in {@link Fraction#add}.
+     */
+    public static final BigInteger BI_MAX_LONG_PLUS_ONE = BI_MIN_LONG.negate();
+    
+    /**
+     * Value of 2<sup>64</sup>.
      * Used in {@link MathUtils#toUnsignedBigInteger}.
      */
-    public static final BigInteger BI_MAX_LONG_PLUS_TWO = BI_MAX_LONG.add( BI_TWO );
+    public static final BigInteger BI_2_POW_64 = BigInteger.ONE.shiftLeft( 64 );
     
     /**
      * Value of 11 * 17 * 19 * 23 * 31 * 25 * 63.

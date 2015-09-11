@@ -22,10 +22,14 @@ public class MathUtilsPowTest
     private static final double EXACT = -1.0;
     private static final Random RANDOM = new Random( System.nanoTime() );
     private static final double DOUBLES[] = new double[]{ Double.NEGATIVE_INFINITY, -0.0, Double.NaN, 0.0, Double.POSITIVE_INFINITY,
-                                                          Long.MIN_VALUE, Integer.MIN_VALUE, Short.MIN_VALUE, Byte.MIN_VALUE, Byte.MAX_VALUE, Short.MAX_VALUE, Integer.MAX_VALUE, Long.MAX_VALUE, Float.MAX_VALUE, Double.MAX_VALUE,
-                                                          Double.MIN_VALUE, Double.MIN_NORMAL, Float.MIN_VALUE, Float.MIN_NORMAL,
-                                                          0.5, 0.1, 0.2, 0.8, 1.1, 1.2, 1.5, 1.8, 2.0, 1.2, 2.2, 2.5, 2.8, 33.0, 33.1, 33.5, 33.8,
-                                                          -0.5, -0.1, -0.2, -0.8, -1.1, -1.2, -1.5, -1.8, -2.0, -1.2, -2.2, -2.5, -2.8, -33.0, -33.1, -33.5, -33.8 };
+                                                          Long.MIN_VALUE, Integer.MIN_VALUE, Short.MIN_VALUE, Byte.MIN_VALUE,
+                                                          -(double)Long.MIN_VALUE, -(double)Integer.MIN_VALUE, -(double)Short.MIN_VALUE, -(double)Byte.MIN_VALUE,
+                                                          Byte.MAX_VALUE, Short.MAX_VALUE, Integer.MAX_VALUE, Long.MAX_VALUE,
+                                                          -Byte.MAX_VALUE, -Short.MAX_VALUE, -Integer.MAX_VALUE, -Long.MAX_VALUE,
+                                                          Double.MAX_VALUE, Float.MAX_VALUE, Double.MIN_VALUE, Float.MIN_VALUE, Double.MIN_NORMAL, Float.MIN_NORMAL,
+                                                          -Double.MAX_VALUE, -Float.MAX_VALUE, -Double.MIN_VALUE, -Float.MIN_VALUE, -Double.MIN_NORMAL, -Float.MIN_NORMAL,
+                                                          0.5, 0.1, 0.2, 0.8, 1.1, 1.2, 1.5, 1.8, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 1.3, 2.2, 2.5, 2.8, 33.0, 33.1, 33.5, 33.8, 10.0, 300.0, 400.0, 500.0,
+                                                          -0.5, -0.1, -0.2, -0.8, -1.1, -1.2, -1.5, -1.8, -1.0, -2.0, -3.0, -4.0, -5.0, -6.0, -7.0, -8.0, -9.0, -1.3, -2.2, -2.5, -2.8, -33.0, -33.1, -33.5, -33.8, -10.0, -300.0, -400.0, -500.0 };
     private static final int INTS[] = new int[]{ Integer.MAX_VALUE, Integer.MAX_VALUE - 1, Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 2, 0, 1, 2, 3, 5, 8, 10, 20, 100, 300, 500, -1, -2, -3, -5, -8, -10, -20, -100, -300, -500 };
     private static final long LONGS[] = new long[]{ Long.MAX_VALUE, Long.MAX_VALUE - 1, Long.MIN_VALUE, Long.MIN_VALUE + 1, Long.MIN_VALUE + 2, Integer.MAX_VALUE, Integer.MAX_VALUE - 1, Integer.MIN_VALUE, Integer.MIN_VALUE + 1, Integer.MIN_VALUE + 2, 0, 1, 2, 3, 5, 8, 10, 20, 100, 300, 500, -1, -2, -3, -5, -8, -10, -20, -100, -300, -500 };
     
@@ -110,7 +114,7 @@ public class MathUtilsPowTest
         }
     }
     
-    @Test( timeout = 5000L )
+    @Test//( timeout = 5000L )
     public void powDoubleIntSpecial()
     {
         // Special cases from Math.pow javadoc:
@@ -123,13 +127,17 @@ public class MathUtilsPowTest
         for ( int i : INTS ) if ( i != 0 ) assertEquals( Double.NaN, pow( Double.NaN, i ), EXACT );
         // If the absolute value of the first argument is greater than 1 and the second argument is positive infinity, or
         // the absolute value of the first argument is less than 1 and the second argument is negative infinity, then the result is positive infinity.
-        for ( double d : DOUBLES ) if ( Math.abs( d ) > 1.0 ) assertEquals( "Math.pow: " + Math.pow( d, Double.POSITIVE_INFINITY ), Double.POSITIVE_INFINITY, pow( d, Integer.MAX_VALUE - 1 ), EXACT );
+        for ( double d : DOUBLES ) if ( Math.abs( d ) > 1.0 ) assertEquals( Double.POSITIVE_INFINITY, pow( d, Integer.MAX_VALUE - 1 ), EXACT );
         for ( double d : DOUBLES ) if ( Math.abs( d ) < 1.0 ) assertEquals( Double.POSITIVE_INFINITY, pow( d, Integer.MIN_VALUE ), EXACT );
+        // Note: Integer.MAX_VALUE isn't actually an infinity, so its parity affects the sign of resulting zero.
+        for ( double d : DOUBLES ) if ( Math.abs( d ) > 1.0 ) assertTrue( Double.isInfinite( pow( d, Integer.MAX_VALUE ) ) );
+        for ( double d : DOUBLES ) if ( Math.abs( d ) < 1.0 ) assertTrue( Double.isInfinite( pow( d, Integer.MIN_VALUE + 1 ) ) );
         // If the absolute value of the first argument is greater than 1 and the second argument is negative infinity, or
         // the absolute value of the first argument is less than 1 and the second argument is positive infinity, then the result is positive zero.
         for ( double d : DOUBLES ) if ( Math.abs( d ) > 1.0 ) assertEquals( 0.0, pow( d, Integer.MIN_VALUE ), EXACT );
         for ( double d : DOUBLES ) if ( Math.abs( d ) < 1.0 ) assertEquals( 0.0, pow( d, Integer.MAX_VALUE - 1 ), EXACT );
         // Note: Integer.MAX_VALUE isn't actually an infinity, so its parity affects the sign of resulting zero.
+        for ( double d : DOUBLES ) if ( Math.abs( d ) > 1.0 ) assertTrue( pow( d, Integer.MIN_VALUE + 1 ) == 0.0 );
         for ( double d : DOUBLES ) if ( Math.abs( d ) < 1.0 ) assertTrue( pow( d, Integer.MAX_VALUE ) == 0.0 );
         // If the absolute value of the first argument equals 1 and the second argument is infinite, then the result is NaN. <- Impossible with int.
         // If the first argument is positive zero and the second argument is greater than zero, or
@@ -138,8 +146,8 @@ public class MathUtilsPowTest
         for ( int i : INTS ) if ( i < 0 ) assertEquals( 0.0, pow( Double.POSITIVE_INFINITY, i ), EXACT );
         // If the first argument is positive zero and the second argument is less than zero, or
         // the first argument is positive infinity and the second argument is greater than zero, then the result is positive infinity.
-        for ( int i : INTS ) if ( i > 0 ) assertEquals( Double.POSITIVE_INFINITY, pow( Double.POSITIVE_INFINITY, Integer.MAX_VALUE ), EXACT );
-        for ( int i : INTS ) if ( i < 0 ) assertEquals( Double.POSITIVE_INFINITY, pow( 0.0, Integer.MIN_VALUE ), EXACT );
+        for ( int i : INTS ) if ( i < 0 ) assertEquals( Double.POSITIVE_INFINITY, pow( 0.0, i ), EXACT );
+        for ( int i : INTS ) if ( i > 0 ) assertEquals( Double.POSITIVE_INFINITY, pow( Double.POSITIVE_INFINITY, i ), EXACT );
         // If the first argument is negative zero and the second argument is greater than zero but not a finite odd integer, or
         // the first argument is negative infinity and the second argument is less than zero but not a finite odd integer, then the result is positive zero.
         for ( int i : INTS ) if ( i > 0 && ( i & 1 ) == 0 ) assertEquals( 0.0, pow( -0.0, i ), EXACT );
