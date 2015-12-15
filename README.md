@@ -432,7 +432,7 @@ Returns [integer square root](http://en.wikipedia.org/wiki/Integer_square_root) 
 
 The greatest integer less than or equal to the square root of n. In other words, `trunc( sqrt( n ) )`. Example:
 
-    isqrt( 27 ) = 5 because 5 * 5 = 25 &le; 27 and 6 * 6 = 36 > 27
+    isqrt( 27 ) = 5 because 5 * 5 = 25 ≤ 27 and 6 * 6 = 36 > 27
 
 Throws exception if `n < 0`.
 ___
